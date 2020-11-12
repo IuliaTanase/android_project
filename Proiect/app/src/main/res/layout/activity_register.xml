@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+
+
+    <TextView
+        android:id="@+id/androidele_tvNameApp_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/androidele_RentManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="40dp"/>
+
+    <EditText
+        android:id="@+id/androidele_etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tvNameApp_register"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="60dp"
+        android:hint="@string/androidele_fullName"
+        >
+    </EditText>
+
+    <EditText
+        android:id="@+id/androidele_etEmail_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etFullName"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/androidele_email"
+        android:inputType="textEmailAddress"
+        >
+    </EditText>
+    <EditText
+        android:id="@+id/androidele_etPassword_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etEmail_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/androidele_Password"
+        android:inputType="textPassword"
+        >
+    </EditText>
+
+    <Button
+        android:id="@+id/androidele_btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:text="@string/androidele_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etPassword_register"
+        android:layout_marginTop="30dp"
+        >
+
+    </Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

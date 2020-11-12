@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/androidele_apartments"
+            android:icon="@drawable/ic_baseline_apartment_24"
+            android:title="@string/anroidele_apartamente" />
+        <item
+            android:id="@+id/androidele_chiriasi"
+            android:icon="@drawable/ic_baseline_people_alt_24"
+            android:title="@string/androidele_chiriasi" />
+    </group>
+</menu>

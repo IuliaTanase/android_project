@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Proiect</string>
+    <string name="rent_manager">Rent Manager</string>
+    <string name="androidele_RentManager">Rent Manager</string>
+    <string name="androidele_email">Email</string>
+    <string name="androidele_Password">Password</string>
+    <string name="androidele_login">Login</string>
+    <string name="androidele_register">Register</string>
+    <string name="androidele_fullName">Full Name</string>
+    <string name="androidele_FullNameRequired">Complete your full name, please!</string>
+    <string name="androidele_emailRequried">Email is requried!!</string>
+    <string name="androidele_invalidEmail">Invalid email.</string>
+    <string name="androidele_completePass">Complete your password, please!</string>
+    <string name="androide_registreFailed">Register failed. Try again!</string>
+    <string name="androide_paramSuccessfully">%1$s, you have been registred succesfully</string>
+    <string name="androide_paramFailed">%1$s, your registration has failed. Please, try again!</string>
+    <string name="androidele_loginFailed">Login failed. Try again!</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="anroidele_apartamente">Apartamente</string>
+    <string name="androidele_chiriasi">Chiriasi</string>
+    <string name="androidele_owner">Owner: %1$s</string>
+    <string name="androidele_errLoadingData">Error loading data</string>
+</resources>
