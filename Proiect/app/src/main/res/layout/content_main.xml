@@ -15,12 +15,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/androidele_tvNothingToSeeHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/coming_soon"
+            android:text="@string/nothing_to_see_here"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/androidele_manImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/androidele_manImage"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="150dp"
-            android:src="@drawable/man"
-            android:layout_marginLeft="50dp"></ImageView>
+            android:layout_width="250dp"
+            android:layout_height="280dp"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            android:src="@drawable/man" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

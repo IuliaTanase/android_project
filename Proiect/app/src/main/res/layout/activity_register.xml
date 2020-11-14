@@ -12,6 +12,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/androidele_RentManager"
+        android:fontFamily="@font/coming_soon"
+        android:textColor="@android:color/black"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,15 +24,13 @@
         android:id="@+id/androidele_etFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/androidele_tvNameApp_register"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="88dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="60dp"
         android:hint="@string/androidele_fullName"
-        >
-    </EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tvNameApp_register"/>
 
     <EditText
         android:id="@+id/androidele_etEmail_register"
@@ -43,33 +44,34 @@
         android:inputType="textEmailAddress"
         >
     </EditText>
+
     <EditText
         android:id="@+id/androidele_etPassword_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/androidele_etEmail_register"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
         android:hint="@string/androidele_Password"
         android:inputType="textPassword"
-        >
-    </EditText>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etEmail_register"/>
 
     <Button
         android:id="@+id/androidele_btnRegister"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
-        android:text="@string/androidele_register"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/register"
+        android:fontFamily="@font/coming_soon"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/androidele_etPassword_register"
-        android:layout_marginTop="30dp"
-        >
+        app:layout_constraintTop_toBottomOf="@id/androidele_etPassword_register">
 
     </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>

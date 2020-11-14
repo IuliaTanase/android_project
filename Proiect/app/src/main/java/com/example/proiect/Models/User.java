@@ -1,5 +1,7 @@
 package com.example.proiect.Models;
 
+import androidx.annotation.NonNull;
+
 public class User {
 
     private String fullName;
@@ -39,5 +41,11 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.fullName + " - " + this.email;
     }
 }
