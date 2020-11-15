@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Proiect</string>
+    <string name="rent_manager">Rent Manager</string>
+    <string name="androidele_RentManager">Rent Manager</string>
+    <string name="androidele_email">Email</string>
+    <string name="androidele_Password">Password</string>
+    <string name="androidele_login">Login</string>
+    <string name="androidele_register">You don\'t have an account? Register here.</string>
+    <string name="androidele_fullName">Full Name</string>
+    <string name="androidele_FullNameRequired">Complete your full name, please!</string>
+    <string name="androidele_emailRequired">Email is required!</string>
+    <string name="androidele_invalidEmail">Invalid email.</string>
+    <string name="androidele_completePass">Complete your password, please!</string>
+    <string name="androidele_registerFailed">Register failed. Try again!</string>
+    <string name="androidele_paramSuccessfully">%1$s, you have been registered successfully</string>
+    <string name="androidele_paramFailed">%1$s, your registration has failed. Please try again!</string>
+    <string name="androidele_loginFailed">Login failed. Try again!</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="androidele_apartamente">Apartamente</string>
+    <string name="androidele_chiriasi">Chiriasi</string>
+    <string name="androidele_owner">Owner: %1$s</string>
+    <string name="androidele_errLoadingData">Error loading data</string>
+    <string name="androidele_invalidPassword">Password should have at least 8 characters!</string>
+    <string name="nothing_to_see_here">Nothing to see here</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_a_new_apartment">Add a new apartment</string>
+    <string name="number_of_rooms">Number of rooms</string>
+    <string name="address">Address</string>
+    <string name="description">Description</string>
+    <string name="available">Available</string>
+    <string name="occupied">Occupied</string>
+    <string name="availability">Availability</string>
+    <string name="rent_per_month">Rent per month</string>
+    <string name="available_from_date">Available from date</string>
+    <string name="add_apartment">Add apartment</string>
+    <string name="availability_date">Availability date</string>
+    <string name="androidele_Title_required">Complete the apartment title, please!</string>
+    <string name="androidele_incorrect_rent_field">Field incorrectly completed!</string>
+    <string name="androidele_invalid_format_availabilityDate">Invalid date. Format required: dd/mm/yyyy</string>
+    <string name="add_apartment_name">Apartment name</string>
+    <string name="apartment_title">Apartment title</string>
+    <string name="tenant_name">Tenant name</string>
+    <string name="add_tenant_name">Tenant name</string>
+    <string name="apartment_address">Apartment address</string>
+    <string name="lv_row_default_value">-</string>
+    <string name="show_pressed_option">\Ai apasat optiunea %1$s\</string>
+    <string name="new_apartment_received">A new apartment was added</string>
+    <string name="register">Register</string>
+
+    <string-array name="apartment_nr_of_rooms">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+</resources>
