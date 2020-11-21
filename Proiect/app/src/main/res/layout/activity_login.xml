@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/AndroideleStyle"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/androidele_tvNameApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/coming_soon"
-        android:textColor="@android:color/black"
+        android:theme="@style/AndroideleStyle"
         android:textSize="30sp"
         android:text="@string/androidele_RentManager"
         app:layout_constraintEnd_toEndOf="parent"

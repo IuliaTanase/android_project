@@ -3,6 +3,8 @@ package com.example.proiect;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,6 +13,7 @@ import com.example.proiect.Models.Apartment;
 import com.example.proiect.Models.Tenant;
 import com.example.proiect.Models.User;
 import com.example.proiect.fragments.ApartmentsFragment;
+import com.example.proiect.fragments.DetailsFragment;
 import com.example.proiect.fragments.TenantsFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,11 +51,13 @@ public class MainActivity extends AppCompatActivity {
     View nav_layout;
 
     private ImageView imageMan;
-    private TextView tvNothingToSeeHere;
+    private TextView motto;
 
     private Fragment currentFragment;
     private ArrayList<Apartment> apartments = new ArrayList<>();
     private ArrayList<Tenant> tenants = new ArrayList<>();
+    Animation Coming;
+    Animation ComeToLeft;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +65,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         configNavig();
         addApartments(apartments);
-        setVisibilityImageMan();
-        openDefaultFragment(savedInstanceState);
+        //openDefaultFragment(savedInstanceState);
     }
 
+
     private NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
+
+
         return new NavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected (@NonNull MenuItem item) {
+                    setVisibilityImage(item.getItemId());
                     if (item.getItemId() == R.id.androidele_apartments) {
+
                         //deschid fragment de apartaments
                         currentFragment = ApartmentsFragment.newInstance(apartments);
                         //navigationView.setCheckedItem(R.id.androidele_apartments);
@@ -76,8 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
                     if (item.getItemId() == R.id.androidele_chiriasi) {
                         //deschid fragment de chiriasi
-                        currentFragment = TenantsFragment.newInstance(tenants);
+                        currentFragment = TenantsFragment.newInstance(tenants,apartments);
                         //navigationView.setCheckedItem(R.id.androidele_chiriasi);
+                    }
+
+                    if(item.getItemId() == R.id.androidele_details){
+                        imageMan.setVisibility(View.INVISIBLE);
+                        motto.setVisibility(View.INVISIBLE);
+                        currentFragment = DetailsFragment.newInstance();
                     }
                     Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
                     openFragment();
@@ -105,33 +120,55 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setVisibilityImageMan() {
-        if(apartments.size() == 0) {
-            tvNothingToSeeHere.setVisibility(View.VISIBLE);
-           imageMan.setVisibility(View.VISIBLE);
-        } else {
-            tvNothingToSeeHere.setVisibility(View.INVISIBLE);
-            imageMan.setVisibility(View.INVISIBLE);
+   public void setVisibilityImage(int id){
+        if(id ==R.id.androidele_apartments){
+            if(apartments.size()==0){
+                imageMan.setVisibility(View.VISIBLE);
+                motto.setVisibility(View.VISIBLE);
+            }else
+            {
+                imageMan.setVisibility(View.INVISIBLE);
+                motto.setVisibility(View.INVISIBLE);
+
+            }
+        }else
+        {
+            if(tenants.size()==0){
+                imageMan.setVisibility(View.VISIBLE);
+                motto.setVisibility(View.VISIBLE);
+
+            }else
+            {
+                imageMan.setVisibility(View.INVISIBLE);
+                motto.setVisibility(View.INVISIBLE);
+
+            }
         }
-    }
+   }
 
     private void initializeComponents() {
         navigationView = findViewById(R.id.androidele_navView);
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
-
         nav_layout = navigationView.getHeaderView(0);
         tv_owner = nav_layout.findViewById(R.id.androidele_tvMenu);
         tv_email = nav_layout.findViewById(R.id.androidele_tvMenu2);
+        motto = findViewById(R.id.androidele_tvMotto);
+        imageMan = findViewById(R.id.androidele_ownerImg);
+        imageMan.setVisibility(View.VISIBLE);
+        //asociem obiectului animatie contextul si fisierul xml come_up
+        Coming = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.come_up);
+        ComeToLeft = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.come_left);
+        //imaginea incepe sa realizeze animatia
+        imageMan.startAnimation(Coming);
+        motto.startAnimation(ComeToLeft);
 
-        imageMan = findViewById(R.id.androidele_manImage);
-        tvNothingToSeeHere = findViewById(R.id.androidele_tvNothingToSeeHere);
 
         //pentru baza de date luam userul curent si referinta pentru tabelul Users
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseDatabase.getInstance().getReference("Users");
     }
 
-    private void settingTexts() {
+    public void settingTexts() {
 
         String userID = user.getUid();
         db.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -170,7 +207,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void addApartments(List<Apartment> apartments) {
-        apartments.add(new Apartment("ap1", 2, 350, "Dristor 97-119", "Complet mobilat si utilat", false, new Date(), null));
+        Tenant tenant = new Tenant(1,"Georgescu Mihai", "+40751348966");
+        tenants.add(tenant);
+        apartments.add(new Apartment("ap1", 2, 350, "Dristor 97-119", "Complet mobilat si utilat", false, new Date(), tenant));
         apartments.add(new Apartment("ap2", 1, 290, "Trapezului 56", "Bucatarie open-space", true, new Date(), new Tenant(2, "Radu", "0723456789")));
         apartments.add(new Apartment("ap3", 3, 420, "Pipera", "Apartament lux prima inchiriere", false, new Date(), null));
     }

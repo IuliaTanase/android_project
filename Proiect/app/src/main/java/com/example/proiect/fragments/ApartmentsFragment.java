@@ -7,10 +7,13 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,35 +29,23 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ApartmentsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ApartmentsFragment extends Fragment {
 
-    private ImageView imageMan;
-    private TextView tvNothingToSeeHere;
+public class ApartmentsFragment extends Fragment{
+
 
     private static String APARTMENTS_KEY = "apartments_key";
     private static int NEW_APARTMENT_REQUEST_CODE = 210;
 
     private FloatingActionButton btnAddApartment;
+    Animation grow;
 
     private ListView lvApartments;
     private List<Apartment> apartments = new ArrayList<>();
 
+    private CountDownTimer timer;
+
     public ApartmentsFragment() {}
 
-    public void setVisibilityImageMan() {
-        if(apartments.size() == 0) {
-            tvNothingToSeeHere.setVisibility(View.VISIBLE);
-            imageMan.setVisibility(View.VISIBLE);
-        } else {
-            tvNothingToSeeHere.setVisibility(View.INVISIBLE);
-            imageMan.setVisibility(View.INVISIBLE);
-        }
-    }
 
     public static ApartmentsFragment newInstance(ArrayList<Apartment> apartments) {
 
@@ -71,12 +62,12 @@ public class ApartmentsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_apartments, container, false);
         initializeComponents(view);
-//        setVisibilityImageMan(); /*TODO*/
         btnAddApartment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(requireContext().getApplicationContext(), AddApartmentActivity.class);
-                startActivityForResult(intent, NEW_APARTMENT_REQUEST_CODE);
+                btnAddApartment.startAnimation(grow);
+                timer.start();
+
             }
         });
 
@@ -91,7 +82,6 @@ public class ApartmentsFragment extends Fragment {
             if(apartment != null) {
                 Toast.makeText(requireContext().getApplicationContext(), R.string.new_apartment_received, Toast.LENGTH_LONG).show();
                 apartments.add(apartment);
-//                setVisibilityImageMan(); /*TODO*/
                 notifyInternalAdapter();
             }
 
@@ -102,9 +92,21 @@ public class ApartmentsFragment extends Fragment {
 
         btnAddApartment = view.findViewById(R.id.androidele_fab_addNewApartment);
         lvApartments = view.findViewById(R.id.androidele_lv_apartments);
+        grow = AnimationUtils.loadAnimation(getContext(),R.anim.grow);
+        timer = new CountDownTimer(1700,1) {
+            @Override
+            public void onTick(long millisUntilFinished) {
 
-        imageMan = view.findViewById(R.id.androidele_manImage);
-        tvNothingToSeeHere = view.findViewById(R.id.androidele_tvNothingToSeeHere);
+            }
+
+            @Override
+            public void onFinish() {
+
+                Intent intent = new Intent(requireContext().getApplicationContext(), AddApartmentActivity.class);
+                startActivityForResult(intent, NEW_APARTMENT_REQUEST_CODE);
+
+            }
+        };
 
         if(getArguments() != null) {
             apartments = getArguments().getParcelableArrayList(APARTMENTS_KEY);
@@ -123,4 +125,5 @@ public class ApartmentsFragment extends Fragment {
         ArrayAdapter adapter = (ArrayAdapter) lvApartments.getAdapter();
         adapter.notifyDataSetChanged();
     }
+
 }

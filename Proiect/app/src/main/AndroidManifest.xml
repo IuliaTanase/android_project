@@ -10,12 +10,12 @@
         android:label="@string/androidele_RentManager"
         android:roundIcon="@mipmap/ic_people_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".AddApartmentActivity"></activity>
+        android:theme="@style/AndroideleStyle">
+        <activity android:name=".AddApartmentActivity" />
         <activity
             android:name=".MainActivity"
             android:label="Rent Manager"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AndroideleStyle" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

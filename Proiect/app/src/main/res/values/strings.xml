@@ -27,7 +27,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="androidele_apartamente">Apartamente</string>
-    <string name="androidele_chiriasi">Chiriasi</string>
+    <string name="androidele_chiriasi">Tenants</string>
     <string name="androidele_owner">Owner: %1$s</string>
     <string name="androidele_errLoadingData">Error loading data</string>
     <string name="androidele_invalidPassword">Password should have at least 8 characters!</string>
@@ -57,6 +57,13 @@
     <string name="show_pressed_option">\Ai apasat optiunea %1$s\</string>
     <string name="new_apartment_received">A new apartment was added</string>
     <string name="register">Register</string>
+    <string name="androidele_phone">Phone</string>
+    <string name="androidele_nothingHere">Nothing here</string>
+    <string name="androidele_details">Details</string>
+    <string name="androidele_update">Update</string>
+    <string name="androidele_logout">Logout</string>
+    <string name="androidele_updatedSuccess">Updated successfully!</string>
+    <string name="androidele_motto">Here is the secret of a successful lessor!</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>
