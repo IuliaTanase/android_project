@@ -33,6 +33,7 @@ public class ApartmentAdapter extends ArrayAdapter<Apartment> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View view = inflater.inflate(resource, parent, false);
+        System.out.println(view.toString());
         Apartment apartment = apartments.get(position);
 
         if(apartment != null) {

@@ -3,7 +3,6 @@ package com.example.proiect.Models;
 import androidx.annotation.NonNull;
 
 public class User {
-
     private String fullName;
     private String email;
     private String password;

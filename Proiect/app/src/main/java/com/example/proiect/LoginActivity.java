@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -18,13 +19,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText et_email, et_password;
     private Button btn_login;
     private TextView tv_register;
     private ProgressBar progressBar;
-    FirebaseAuth fb_authentication;
+    private FirebaseAuth fb_authentication;
+    private MediaPlayer mediaPlayer ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +44,11 @@ public class LoginActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.androidele_loginProgressBar);
         fb_authentication = FirebaseAuth.getInstance();
         tv_register = findViewById(R.id.androidele_tvRegister);
+        mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.stars);
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(i);
             }
@@ -69,8 +74,10 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                mediaPlayer.start();
                                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(i);
+
                             } else {
                                 Toast.makeText(getApplicationContext(), R.string.androidele_loginFailed, Toast.LENGTH_SHORT).show();
                             }
@@ -104,4 +111,5 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+
 }

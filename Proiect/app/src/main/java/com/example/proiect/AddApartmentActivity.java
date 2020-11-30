@@ -16,7 +16,6 @@ import com.example.proiect.Models.DateConverter;
 import com.example.proiect.Models.Tenant;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
 import java.util.Date;
 
 public class AddApartmentActivity extends AppCompatActivity {

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.DetailsFragment">
+
+
+    <TextView
+        android:id="@+id/androidele_tvDetailsFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="30dp"
+        android:text="@string/androidele_fullName"
+        app:layout_constraintEnd_toStartOf="@id/androidele_etDetailsFullName"
+        app:layout_constraintHorizontal_bias="0.19"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/androidele_etDetailsFullName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/androidele_tvDetailsFullName"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        ></EditText>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/androidele_tvDetailsEmail"
+        android:text="@string/androidele_email"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tvDetailsFullName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/androidele_etDetailsEmail"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="40dp"
+
+        ></TextView>
+
+    <EditText
+        android:id="@+id/androidele_etDetailsEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@id/androidele_tvDetailsEmail"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etDetailsFullName"></EditText>
+
+    <Button
+        android:id="@+id/androidele_btnUpdateDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_corners"
+        android:text="@string/androidele_update"
+        app:layout_constraintBottom_toTopOf="@id/androidele_btnLogout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tvDetailsEmail"
+        app:layout_constraintVertical_bias="0.65"></Button>
+
+    <Button
+        android:id="@+id/androidele_btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_corners"
+        android:text="@string/androidele_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.82"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_btnUpdateDetails"></Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
