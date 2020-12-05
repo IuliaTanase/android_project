@@ -1,4 +1,4 @@
-package com.example.proiect.Models;
+package com.example.proiect.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +18,12 @@ public class Tenant implements Parcelable {
         this.id = 0;
         this.fullName = fullName;
         this.phone = "-";
+    }
+
+    public Tenant(String fullName, String phone) {
+        this.id = 0;
+        this.fullName = fullName;
+        this.phone = phone;
     }
 
     public Tenant(int id, String fullName, String phone) {

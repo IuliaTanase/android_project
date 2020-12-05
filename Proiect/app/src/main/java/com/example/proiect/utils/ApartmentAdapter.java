@@ -1,4 +1,4 @@
-package com.example.proiect.Models;
+package com.example.proiect.utils;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -33,14 +33,12 @@ public class ApartmentAdapter extends ArrayAdapter<Apartment> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         View view = inflater.inflate(resource, parent, false);
-        System.out.println(view.toString());
         Apartment apartment = apartments.get(position);
 
         if(apartment != null) {
             addApartmentName(view, apartment.getTitle());
             addTenantName(view, apartment.getTenant().getFullName());
             addApartmentAddress(view, apartment.getAddress());
-            //addExpirationTime(view, bankAccount.getExpirationMonth(), bankAccount.getExpirationYear());
         }
         return view;
     }
@@ -68,9 +66,4 @@ public class ApartmentAdapter extends ArrayAdapter<Apartment> {
         populateTextViewContent(address, textView);
     }
 
-//    private void addExpirationTime(View view, int expirationMonth, int expirationYear) {
-//        TextView textView = view.findViewById(R.id.tv_row_expiration_time);
-//        String value = context.getString(R.string.lv_row_expiration_time_format, expirationMonth, expirationYear);
-//        populateTextViewContent(value, textView);
-//    }
 }

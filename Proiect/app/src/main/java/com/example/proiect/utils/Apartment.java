@@ -1,4 +1,4 @@
-package com.example.proiect.Models;
+package com.example.proiect.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import java.util.Date;
 
 public class Apartment implements Parcelable {
-
+    private int id;
     private String title;
     private int nrOfRooms;
     private double rentPerMonth;
@@ -18,7 +18,8 @@ public class Apartment implements Parcelable {
     private Date freeDate;
     private Tenant tenant;
 
-    public Apartment(String title, int nrOfRooms, double rentPerMonth, String address, String description, boolean availability, Date freeDate, Tenant tenant) {
+    public Apartment(int id, String title, int nrOfRooms, double rentPerMonth, String address, String description, boolean availability, Date freeDate, Tenant tenant) {
+        this.id = id;
         this.title = title;
         this.nrOfRooms = nrOfRooms;
         this.rentPerMonth = rentPerMonth;
@@ -33,6 +34,13 @@ public class Apartment implements Parcelable {
         }
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -114,6 +122,7 @@ public class Apartment implements Parcelable {
 
 
     private Apartment(Parcel source) {
+        id = source.readInt();
         title = source.readString();
         rentPerMonth = source.readDouble();
         nrOfRooms = source.readInt();
@@ -144,6 +153,7 @@ public class Apartment implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeDouble(rentPerMonth);
         dest.writeInt(nrOfRooms);

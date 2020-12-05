@@ -26,7 +26,7 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
-    <string name="androidele_apartamente">Apartamente</string>
+    <string name="androidele_apartamente">Apartments</string>
     <string name="androidele_chiriasi">Tenants</string>
     <string name="androidele_owner">Owner: %1$s</string>
     <string name="androidele_errLoadingData">Error loading data</string>
@@ -54,7 +54,7 @@
     <string name="add_tenant_name">Tenant name</string>
     <string name="apartment_address">Apartment address</string>
     <string name="lv_row_default_value">-</string>
-    <string name="show_pressed_option">\Ai apasat optiunea %1$s\</string>
+    <string name="show_pressed_option">\You pressed the option %1$s\</string>
     <string name="new_apartment_received">A new apartment was added</string>
     <string name="register">Register</string>
     <string name="androidele_phone">Phone</string>
@@ -64,6 +64,15 @@
     <string name="androidele_logout">Logout</string>
     <string name="androidele_updatedSuccess">Updated successfully!</string>
     <string name="androidele_motto">Here is the secret of a successful lessor!</string>
+    <string name="androidele_details_intro">Details</string>
+    <string name="androidele_you_enjoy_this_app_rate_it_here">You enjoy this app? Rate it here :)</string>
+    <string name="androidele_you_rated_app">You rated this app!</string>
+    <string name="androidele_dark_theme">Dark theme</string>
+    <string name="androidele_dark_mode_activated">Dark mode activated!</string>
+    <string name="androidele_light_mode_activated">Light mode activated!</string>
+    <string name="light_mode">Light mode</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="androidele_tenant_phone">Tenant phone</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>
