@@ -15,7 +15,7 @@ import android.widget.ListView;
 import com.example.proiect.MainActivity;
 import com.example.proiect.utils.Apartment;
 import com.example.proiect.utils.Tenant;
-import com.example.proiect.utils.TenantAdapter;
+import com.example.proiect.adapters.TenantAdapter;
 import com.example.proiect.R;
 
 import java.util.ArrayList;

@@ -25,11 +25,10 @@ import com.example.proiect.asyncTask.AsyncTaskRunner;
 import com.example.proiect.asyncTask.Callback;
 import com.example.proiect.network.HttpManager;
 import com.example.proiect.utils.Apartment;
-import com.example.proiect.utils.ApartmentAdapter;
+import com.example.proiect.adapters.ApartmentAdapter;
 import com.example.proiect.R;
 import com.example.proiect.utils.ApartmentJsonParser;
 import com.example.proiect.utils.Tenant;
-import com.google.android.gms.common.FirstPartyScopes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 
-public class ApartmentsFragment extends Fragment{
+public class ApartmentsFragment extends Fragment {
 
     public static final String APARTMENTS_LIST_LENGTH = "apartmentsList_length";
     public static final String TENANTS_LIST_LENGTH = "tenantsList_length";

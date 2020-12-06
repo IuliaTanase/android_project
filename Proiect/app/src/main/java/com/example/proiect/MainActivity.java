@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 import com.example.proiect.asyncTask.AsyncTaskRunner;
 import com.example.proiect.asyncTask.Callback;
+import com.example.proiect.fragments.LocationsFragment;
 import com.example.proiect.utils.Apartment;
 import com.example.proiect.utils.ApartmentJsonParser;
+import com.example.proiect.utils.Location;
 import com.example.proiect.utils.Tenant;
 import com.example.proiect.utils.User;
 import com.example.proiect.fragments.ApartmentsFragment;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Apartment> apartments = new ArrayList<>();
     private ArrayList<Tenant> tenants = new ArrayList<>();
+    private ArrayList<Location> locations = new ArrayList<>();
 
     Animation Coming;
     Animation ComeToLeft;
@@ -151,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
                     imageMan.setVisibility(View.INVISIBLE);
                     motto.setVisibility(View.INVISIBLE);
                     currentFragment = DetailsFragment.newInstance();
+                }
+
+                if (item.getItemId() == R.id.androidele_availableLocations) {
+                    currentFragment = LocationsFragment.newInstance(locations);
                 }
 
                 Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
@@ -263,13 +270,5 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.androidele_frameLayout, currentFragment)
                 .commit();
     }
-
-
-//    private void addApartments(List<Apartment> apartments) {
-//        apartments.add(new Apartment(1"ap1", 2, 350, "Dristor 97-119", "Complet mobilat si utilat", false, new Date(), new Tenant(1,"Georgescu Mihai", "+40751348966")));
-//        apartments.add(new Apartment("ap2", 1, 290, "Trapezului 56", "Bucatarie open-space", true, new Date(), new Tenant(2, "Radu", "+40723456789")));
-//        apartments.add(new Apartment("ap3", 3, 420, "Pipera", "Apartament lux prima inchiriere", false, new Date(), null));
-//    }
-
-
+    
 }

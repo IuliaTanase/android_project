@@ -1,5 +1,6 @@
 package com.example.proiect.utils;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -17,6 +18,30 @@ public class Apartment implements Parcelable {
     private boolean availability;
     private Date freeDate;
     private Tenant tenant;
+
+    public Apartment() {
+        this.id = 0;
+        this.title = "";
+        this.nrOfRooms = 0;
+        this.rentPerMonth = 0;
+        this.address = "";
+        this.description = "";
+        this.availability = true;
+        this.freeDate = new Date();
+       this.tenant = new Tenant();
+    }
+
+    public Apartment(int id, String title, int nrOfRooms, double rentPerMonth, Tenant tenant) {
+        this.id = id;
+        this.title = title;
+        this.nrOfRooms = nrOfRooms;
+        this.rentPerMonth = rentPerMonth;
+        if(tenant == null) {
+            this.tenant = new Tenant();
+        } else {
+            this.tenant = tenant;
+        }
+    }
 
     public Apartment(int id, String title, int nrOfRooms, double rentPerMonth, String address, String description, boolean availability, Date freeDate, Tenant tenant) {
         this.id = id;
@@ -119,7 +144,23 @@ public class Apartment implements Parcelable {
                 "Tenant name: " + ((this.tenant.getFullName() != null) ? this.tenant.getFullName() : "-");
     }
 
+    public Apartment stringToApartment(String apartmentString) {
+        String[] splitted = apartmentString.split(";");
+        int id = Integer.parseInt(splitted[0]);
+        String title = splitted[1];
+        int nrOfRooms = Integer.parseInt(splitted[2]);
+        double rent = Double.parseDouble(splitted[3]);
 
+        String tenString = splitted[4];
+        String[] tenantSplitted = tenString.split(",");
+        Tenant tenant = new Tenant(Integer.parseInt(tenantSplitted[0]), tenantSplitted[1], tenantSplitted[2]);
+
+        return new Apartment(id, title, nrOfRooms, rent, tenant);
+    }
+
+    public String apartmentToString(Apartment apartment) {
+        return apartment.id + ";" + apartment.title + ";" +  apartment.nrOfRooms + ";" +  apartment.rentPerMonth + ";" + apartment.tenant.tenantToString(tenant);
+    }
 
     private Apartment(Parcel source) {
         id = source.readInt();
@@ -132,6 +173,19 @@ public class Apartment implements Parcelable {
         freeDate = new DateConverter().stringToDate(source.readString());
         String string = source.readString();
         tenant = new Tenant().stringToTenant(string);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(title);
+        dest.writeDouble(rentPerMonth);
+        dest.writeInt(nrOfRooms);
+        dest.writeString(address);
+        dest.writeString(description);
+        dest.writeBoolean(availability);
+        dest.writeString(new DateConverter().dateToString(freeDate));
+        dest.writeString(new Tenant().tenantToString(tenant));
     }
 
     public static final Creator<Apartment> CREATOR = new Creator<Apartment>() {
@@ -151,16 +205,5 @@ public class Apartment implements Parcelable {
         return 0;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(title);
-        dest.writeDouble(rentPerMonth);
-        dest.writeInt(nrOfRooms);
-        dest.writeString(address);
-        dest.writeString(description);
-        dest.writeBoolean(availability);
-        dest.writeString(new DateConverter().dateToString(freeDate));
-        dest.writeString(new Tenant().tenantToString(tenant));
-    }
+
 }

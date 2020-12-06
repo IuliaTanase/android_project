@@ -1,4 +1,4 @@
-package com.example.proiect.utils;
+package com.example.proiect.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.proiect.R;
+import com.example.proiect.utils.Apartment;
+import com.example.proiect.utils.Tenant;
 
 import java.util.List;
 

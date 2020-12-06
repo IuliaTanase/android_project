@@ -73,6 +73,11 @@
     <string name="light_mode">Light mode</string>
     <string name="dark_mode">Dark mode</string>
     <string name="androidele_tenant_phone">Tenant phone</string>
+    <string name="androidele_available_locations">Available locations</string>
+    <string name="androidele_location_city">Location city</string>
+    <string name="androidele_location_address">Location address</string>
+    <string name="androidele_location_price">Location price</string>
+    <string name="androidele_tenant_name">Tenant name</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>

@@ -1,4 +1,4 @@
-package com.example.proiect.utils;
+package com.example.proiect.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.example.proiect.R;
+import com.example.proiect.utils.Apartment;
 
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class ApartmentAdapter extends ArrayAdapter<Apartment> {
         populateTextViewContent(tenantName, textView);
     }
 
+    private void addApartmentAddress(View view, String address) {
+        TextView textView = view.findViewById(R.id.androidele_tv_row_apartment_address);
+        populateTextViewContent(address, textView);
+    }
+
     private void populateTextViewContent(String value, TextView textView) {
         if (value != null && !value.isEmpty()) {
             textView.setText(value);
@@ -61,9 +67,5 @@ public class ApartmentAdapter extends ArrayAdapter<Apartment> {
         }
     }
 
-    private void addApartmentAddress(View view, String address) {
-        TextView textView = view.findViewById(R.id.androidele_tv_row_apartment_address);
-        populateTextViewContent(address, textView);
-    }
 
 }
