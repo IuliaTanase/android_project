@@ -1,6 +1,8 @@
 package com.example.proiect.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,16 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proiect.LoginActivity;
 import com.example.proiect.MainActivity;
-import com.example.proiect.Models.User;
+import com.example.proiect.utils.User;
 import com.example.proiect.R;
-import com.example.proiect.asyncTask.AsyncTaskRunner;
-import com.example.proiect.asyncTask.Callback;
-import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,26 +30,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.Callable;
-
 
 public class DetailsFragment extends Fragment {
 
+    public static final String STARS = "stars";
+    public static final String RATING_FOR_THIS_APP = "ratingForThisApp";
+    private EditText etFullName;
+    private EditText etEmail;
+    private DatabaseReference db;
+    private FirebaseAuth fab_auth;
+    private FirebaseUser user;
+    private Button btnUpdate;
+    private Button btnLogout;
 
-    EditText etFullName;
-    EditText etEmail;
-    DatabaseReference db;
-    FirebaseAuth fab_auth;
-    FirebaseUser user;
-    Button btnUpdate;
-    Button btnLogout;
-    TextView tv_owner;
+    private TextView tvRateApp;
+    private TextView tvDetails;
+    private RatingBar ratingBar;
 
+    private TextView tvFullName;
+    private TextView tvEmail;
 
+    private SharedPreferences preferences;
+    private SharedPreferences prefs;
 
-    public DetailsFragment() {
-       
-    }
+    public DetailsFragment() { }
 
   
     public static DetailsFragment newInstance() {
@@ -60,8 +64,6 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -70,23 +72,74 @@ public class DetailsFragment extends Fragment {
         
         View view= inflater.inflate(R.layout.fragment_details, container, false);
         initialize(view);
+
         return view;
     }
 
     private void initialize(View view) {
+        preferences = requireContext().getSharedPreferences(RATING_FOR_THIS_APP, Context.MODE_PRIVATE);
+        prefs = requireContext().getSharedPreferences(MainActivity.THEME_PREF, Context.MODE_PRIVATE);
+
 
         etFullName = view.findViewById(R.id.androidele_etDetailsFullName);
         etEmail = view.findViewById(R.id.androidele_etDetailsEmail);
         btnUpdate = view.findViewById(R.id.androidele_btnUpdateDetails);
         btnLogout = view.findViewById(R.id.androidele_btnLogout);
+
+        tvRateApp = view.findViewById(R.id.androidele_tvRateApp);
+        tvDetails = view.findViewById(R.id.androidele_tvDetailsIntro);
+        ratingBar = view.findViewById(R.id.androidele_ratingBar);
+
+        tvFullName = view.findViewById(R.id.androidele_tvDetailsFullName);
+        tvEmail = view.findViewById(R.id.androidele_tvDetailsEmail);
+
         fab_auth = FirebaseAuth.getInstance();
         db = FirebaseDatabase.getInstance().getReference("Users");
         user = FirebaseAuth.getInstance().getCurrentUser();
+
         btnUpdate.setOnClickListener(update());
         btnLogout.setOnClickListener(logout());
+        tvRateApp.setOnClickListener(rateThisApp());
         settingTexts();
+
+        loadFromSharedPreferences();
+        loadFromPref(view);
     }
 
+
+    private void loadFromSharedPreferences() {
+        float stars = preferences.getFloat(STARS, 0);
+        ratingBar.setRating(stars);
+    }
+
+    private void loadFromPref(View view) {
+        boolean switchChecked = prefs.getBoolean(MainActivity.CHECKED, false);
+        if(switchChecked) {
+            view.setBackground(getResources().getDrawable(R.drawable.black_background));
+            setTextColorDarkTheme();
+        } else {
+            view.setBackground(getResources().getDrawable(R.drawable.app_background));
+            setTextColorLightTheme();
+        }
+    }
+
+    private void setTextColorDarkTheme() {
+        etFullName.setTextColor(getResources().getColor(R.color.colorAccent));
+        etEmail.setTextColor(getResources().getColor(R.color.colorAccent));
+
+        tvFullName.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvEmail.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvDetails.setTextColor(getResources().getColor(R.color.colorAccent));
+    }
+
+    private void setTextColorLightTheme() {
+        etFullName.setTextColor(getResources().getColor(R.color.colorBlack));
+        etEmail.setTextColor(getResources().getColor(R.color.colorBlack));
+
+        tvFullName.setTextColor(getResources().getColor(R.color.colorBlack));
+        tvEmail.setTextColor(getResources().getColor(R.color.colorBlack));
+        tvDetails.setTextColor(getResources().getColor(R.color.colorBlack));
+    }
 
     private void settingTexts() {
 
@@ -109,18 +162,8 @@ public class DetailsFragment extends Fragment {
         });
     }
 
-    private void settingTexts(User result) {
-
-        if(result != null) {
-            etFullName.setText(result.getFullName());
-            etEmail.setText(result.getEmail());
-        }
-    }
-
-
 
     private View.OnClickListener logout() {
-
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +177,6 @@ public class DetailsFragment extends Fragment {
     }
 
     private View.OnClickListener update() {
-
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,10 +188,28 @@ public class DetailsFragment extends Fragment {
                     user.updateEmail(newEmail);
 
                     Toast.makeText(getContext(), getString(R.string.androidele_updatedSuccess), Toast.LENGTH_SHORT).show();
-                }else
-                {
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
                     Toast.makeText(getContext(),"No update has been done.",Toast.LENGTH_SHORT).show();
                 }
+            }
+        };
+    }
+
+    private View.OnClickListener rateThisApp() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                float stars = ratingBar.getRating();
+
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putFloat(STARS, stars);
+                editor.apply();
+
+                Toast.makeText(getContext(), getString(R.string.androidele_you_rated_app), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         };
     }

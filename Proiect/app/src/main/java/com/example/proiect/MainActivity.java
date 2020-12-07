@@ -1,20 +1,31 @@
 package com.example.proiect;
 
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proiect.Models.Apartment;
-import com.example.proiect.Models.Tenant;
-import com.example.proiect.Models.User;
+import com.example.proiect.asyncTask.AsyncTaskRunner;
+import com.example.proiect.asyncTask.Callback;
+import com.example.proiect.fragments.LocationsFragment;
+import com.example.proiect.utils.Apartment;
+import com.example.proiect.utils.ApartmentJsonParser;
+import com.example.proiect.utils.Location;
+import com.example.proiect.utils.Tenant;
+import com.example.proiect.utils.User;
 import com.example.proiect.fragments.ApartmentsFragment;
 import com.example.proiect.fragments.DetailsFragment;
 import com.example.proiect.fragments.TenantsFragment;
+import com.example.proiect.network.HttpManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -36,13 +49,17 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    public static final String CHECKED = "CHECKED";
+    private SharedPreferences preferences;
+    public static final String THEME_PREF = "themePref";
 
     private TextView tv_owner;
     private TextView tv_email;
+
     private FirebaseUser user;
     private DatabaseReference db;
 
@@ -53,9 +70,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageMan;
     private TextView motto;
 
+    private SwitchCompat sw;
     private Fragment currentFragment;
+    private FrameLayout frameLayout;
+
     private ArrayList<Apartment> apartments = new ArrayList<>();
     private ArrayList<Tenant> tenants = new ArrayList<>();
+    private ArrayList<Location> locations = new ArrayList<>();
+
     Animation Coming;
     Animation ComeToLeft;
 
@@ -64,45 +86,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         configNavig();
-        addApartments(apartments);
-        //openDefaultFragment(savedInstanceState);
+
+        sw.setOnCheckedChangeListener(switchSetTheme());
+        loadFromSharedPreferences();
     }
 
-
-    private NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
-
-
-        return new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected (@NonNull MenuItem item) {
-                    setVisibilityImage(item.getItemId());
-                    if (item.getItemId() == R.id.androidele_apartments) {
-
-                        //deschid fragment de apartaments
-                        currentFragment = ApartmentsFragment.newInstance(apartments);
-                        //navigationView.setCheckedItem(R.id.androidele_apartments);
-                    }
-
-                    if (item.getItemId() == R.id.androidele_chiriasi) {
-                        //deschid fragment de chiriasi
-                        currentFragment = TenantsFragment.newInstance(tenants,apartments);
-                        //navigationView.setCheckedItem(R.id.androidele_chiriasi);
-                    }
-
-                    if(item.getItemId() == R.id.androidele_details){
-                        imageMan.setVisibility(View.INVISIBLE);
-                        motto.setVisibility(View.INVISIBLE);
-                        currentFragment = DetailsFragment.newInstance();
-                    }
-                    Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
-                    openFragment();
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    return true;
-                }
-        };
-    }
-
-    private void configNavig(){
+    private void configNavig() {
 
         Toolbar toolbar = findViewById(R.id.androidele_toolbar);
         setSupportActionBar(toolbar);
@@ -117,41 +106,18 @@ public class MainActivity extends AppCompatActivity {
         //metoda pentru a scoate din baza de date atributele userului si a crea obiect de tip user
         //pentru a popula cele 2 textView-uri cu valorile atributelor
         settingTexts();
-
     }
 
-   public void setVisibilityImage(int id){
-        if(id ==R.id.androidele_apartments){
-            if(apartments.size()==0){
-                imageMan.setVisibility(View.VISIBLE);
-                motto.setVisibility(View.VISIBLE);
-            }else
-            {
-                imageMan.setVisibility(View.INVISIBLE);
-                motto.setVisibility(View.INVISIBLE);
-
-            }
-        }else
-        {
-            if(tenants.size()==0){
-                imageMan.setVisibility(View.VISIBLE);
-                motto.setVisibility(View.VISIBLE);
-
-            }else
-            {
-                imageMan.setVisibility(View.INVISIBLE);
-                motto.setVisibility(View.INVISIBLE);
-
-            }
-        }
-   }
-
     private void initializeComponents() {
+        sw = findViewById(R.id.androidele_buttonSwitch);
+
         navigationView = findViewById(R.id.androidele_navView);
         navigationView.setNavigationItemSelectedListener(addNavigationMenuItemSelectedEvent());
         nav_layout = navigationView.getHeaderView(0);
+
         tv_owner = nav_layout.findViewById(R.id.androidele_tvMenu);
         tv_email = nav_layout.findViewById(R.id.androidele_tvMenu2);
+
         motto = findViewById(R.id.androidele_tvMotto);
         imageMan = findViewById(R.id.androidele_ownerImg);
         imageMan.setVisibility(View.VISIBLE);
@@ -162,10 +128,117 @@ public class MainActivity extends AppCompatActivity {
         imageMan.startAnimation(Coming);
         motto.startAnimation(ComeToLeft);
 
+        frameLayout = findViewById(R.id.androidele_frameLayout);
 
         //pentru baza de date luam userul curent si referinta pentru tabelul Users
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseDatabase.getInstance().getReference("Users");
+
+        preferences = getSharedPreferences(THEME_PREF, MODE_PRIVATE);
+    }
+
+    private NavigationView.OnNavigationItemSelectedListener addNavigationMenuItemSelectedEvent() {
+        return new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected (@NonNull MenuItem item) {
+                setVisibilityImage(item.getItemId());
+                if (item.getItemId() == R.id.androidele_apartments) {
+                    currentFragment = ApartmentsFragment.newInstance(apartments, tenants);
+                }
+
+                if (item.getItemId() == R.id.androidele_chiriasi) {
+                    currentFragment = TenantsFragment.newInstance(tenants, apartments);
+                }
+
+                if(item.getItemId() == R.id.androidele_details){
+                    imageMan.setVisibility(View.INVISIBLE);
+                    motto.setVisibility(View.INVISIBLE);
+                    currentFragment = DetailsFragment.newInstance();
+                }
+
+                if (item.getItemId() == R.id.androidele_availableLocations) {
+                    currentFragment = LocationsFragment.newInstance(locations);
+                }
+
+                Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
+                openFragment();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        };
+    }
+
+    private CompoundButton.OnCheckedChangeListener switchSetTheme() {
+        return new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    setDarkTheme();
+                    Toast.makeText(getApplicationContext(), R.string.androidele_dark_mode_activated, Toast.LENGTH_SHORT).show();
+                } else {
+                    setLightTheme();
+                    Toast.makeText(getApplicationContext(), R.string.androidele_light_mode_activated, Toast.LENGTH_SHORT).show();
+                }
+                saveToSharedPreferences();
+            }
+        };
+    }
+
+    private void setDarkTheme() {
+        frameLayout.setBackground(getResources().getDrawable(R.drawable.black_background));
+        motto.setTextColor(getResources().getColor(R.color.colorAccent));
+        navigationView.setBackground(getResources().getDrawable(R.drawable.black_background));
+        navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        navigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
+        Toast.makeText(getApplicationContext(), R.string.androidele_dark_mode_activated, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setLightTheme() {
+        frameLayout.setBackground(getResources().getDrawable(R.drawable.app_background));
+        motto.setTextColor(getResources().getColor(R.color.colorBlack));
+        navigationView.setBackground(getResources().getDrawable(R.drawable.app_background));
+        navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+        navigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
+        Toast.makeText(getApplicationContext(), R.string.androidele_light_mode_activated, Toast.LENGTH_SHORT).show();
+    }
+
+    public void setVisibilityImage(int id) {
+        if(id == R.id.androidele_apartments) {
+            if(apartments.size() == 0) {
+                setViewsVisible();
+            } else {
+                setViewsInvisible();
+            }
+        } else {
+            if(tenants.size() == 0) {
+                setViewsVisible();
+            } else {
+                setViewsInvisible();
+            }
+        }
+   }
+
+   private void setViewsVisible() {
+       imageMan.setVisibility(View.VISIBLE);
+       motto.setVisibility(View.VISIBLE);
+   }
+
+    private void setViewsInvisible() {
+        imageMan.setVisibility(View.INVISIBLE);
+        motto.setVisibility(View.INVISIBLE);
+    }
+
+    private void loadFromSharedPreferences() {
+        boolean switchChecked = preferences.getBoolean(CHECKED, false);
+        sw.setChecked(switchChecked);
+    }
+
+    private void saveToSharedPreferences() {
+        boolean switchChecked = sw.isChecked();
+
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(CHECKED, switchChecked);
+        editor.apply();
     }
 
     public void settingTexts() {
@@ -197,21 +270,5 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.androidele_frameLayout, currentFragment)
                 .commit();
     }
-
-    private void openDefaultFragment(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            currentFragment = ApartmentsFragment.newInstance(apartments);
-            openFragment();
-            navigationView.setCheckedItem(R.id.androidele_apartments);
-        }
-    }
-
-    private void addApartments(List<Apartment> apartments) {
-        Tenant tenant = new Tenant(1,"Georgescu Mihai", "+40751348966");
-        tenants.add(tenant);
-        apartments.add(new Apartment("ap1", 2, 350, "Dristor 97-119", "Complet mobilat si utilat", false, new Date(), tenant));
-        apartments.add(new Apartment("ap2", 1, 290, "Trapezului 56", "Bucatarie open-space", true, new Date(), new Tenant(2, "Radu", "0723456789")));
-        apartments.add(new Apartment("ap3", 3, 420, "Pipera", "Apartament lux prima inchiriere", false, new Date(), null));
-    }
-
+    
 }

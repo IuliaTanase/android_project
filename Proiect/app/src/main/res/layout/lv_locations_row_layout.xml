@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/item_background">
+
+    <ImageView
+        android:id="@+id/androidele_ivLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_location_on_24" />
+
+    <TextView
+        android:id="@+id/androidele_tv_row_location_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/androidele_location_city"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/androidele_ivLocation"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/androidele_iv_locationAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_ivLocation"
+        app:srcCompat="@drawable/ic_baseline_home_work_24" />
+
+    <TextView
+        android:id="@+id/androidele_tv_row_location_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="@string/androidele_location_address"
+        app:layout_constraintStart_toEndOf="@+id/androidele_iv_locationAddress"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tv_row_location_city" />
+
+    <ImageView
+        android:id="@+id/androidele_iv_ApartmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/androidele_ivLocation_price"
+        app:layout_constraintEnd_toStartOf="@id/androidele_tv_row_location_apartmentTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_apartment_24" />
+
+    <TextView
+        android:id="@+id/androidele_tv_row_location_apartmentTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/apartment_title"
+        app:layout_constraintBottom_toTopOf="@+id/androidele_tv_row_location_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/androidele_iv_ApartmentTitle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/androidele_ivLocation_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/androidele_tv_row_location_tenantName"
+        app:layout_constraintEnd_toStartOf="@+id/androidele_tv_row_location_price"
+        app:layout_constraintStart_toEndOf="@id/androidele_tv_row_location_address"
+        app:layout_constraintTop_toBottomOf="@id/androidele_iv_ApartmentTitle"
+        app:srcCompat="@drawable/ic_baseline_attach_money_24" />
+
+    <TextView
+        android:id="@+id/androidele_tv_row_location_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="52dp"
+        android:text="@string/androidele_location_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/androidele_ivLocation_price"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tv_row_location_apartmentTitle" />
+
+    <ImageView
+        android:id="@+id/androidele_iv_tenantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/androidele_tv_row_location_tenantName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tv_row_location_address"
+        app:srcCompat="@drawable/ic_baseline_people_alt_24" />
+
+    <TextView
+        android:id="@+id/androidele_tv_row_location_tenantName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/androidele_tenant_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/androidele_iv_tenantName"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tv_row_location_address"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

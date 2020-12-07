@@ -12,9 +12,15 @@
             android:id="@+id/androidele_chiriasi"
             android:icon="@drawable/ic_baseline_people_alt_24"
             android:title="@string/androidele_chiriasi" />
+
+        <item
+            android:id="@+id/androidele_availableLocations"
+            android:icon="@drawable/ic_baseline_location_on_24"
+            android:title="@string/androidele_available_locations" />
+
         <item
             android:id="@+id/androidele_details"
             android:icon="@drawable/ic_baseline_event_note_24"
-            android:title="@string/androidele_details"></item>
+            android:title="@string/androidele_details" />
     </group>
 </menu>

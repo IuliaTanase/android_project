@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -22,12 +23,17 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String LOGIN_SHARED_PREFERENCES = "loginSharedPreferences";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
     private EditText et_email, et_password;
     private Button btn_login;
     private TextView tv_register;
     private ProgressBar progressBar;
     private FirebaseAuth fb_authentication;
-    private MediaPlayer mediaPlayer ;
+    private MediaPlayer mediaPlayer;
+
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeComponents() {
+        preferences = getSharedPreferences(LOGIN_SHARED_PREFERENCES, MODE_PRIVATE);
 
         et_email = findViewById(R.id.androidele_etEmail);
         et_password = findViewById(R.id.androidele_etPassword);
@@ -45,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         fb_authentication = FirebaseAuth.getInstance();
         tv_register = findViewById(R.id.androidele_tvRegister);
         mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.stars);
+
         tv_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,38 +61,55 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
+        btn_login.setOnClickListener(login());
+
+        loadFromSharedPreferences();
     }
 
-    private void login() {
+    private View.OnClickListener login() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = et_email.getText().toString();
+                String pass = et_password.getText().toString();
 
-        String email = et_email.getText().toString();
-        String pass = et_password.getText().toString();
+                if(validation(email, pass)) {
+                    progressBar.setVisibility(View.VISIBLE);
 
-        if(validation(email, pass)) {
-            progressBar.setVisibility(View.VISIBLE);
+                    fb_authentication.signInWithEmailAndPassword(email,pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if(task.isSuccessful()){
+                                        mediaPlayer.start();
+                                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(i);
 
-            fb_authentication.signInWithEmailAndPassword(email,pass)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                mediaPlayer.start();
-                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(i);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), R.string.androidele_loginFailed, Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                    //salvam user si parola in fisier de preferinte
+                    saveToPreferencesFile(email, pass);
+                }
+            }
+        };
+    }
 
-                            } else {
-                                Toast.makeText(getApplicationContext(), R.string.androidele_loginFailed, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-        }
+    private void loadFromSharedPreferences() {
+        String email = preferences.getString(EMAIL, "");
+        String pass = preferences.getString(PASSWORD, "");
 
+        et_email.setText(email);
+        et_password.setText(pass);
+    }
+
+    private void saveToPreferencesFile(String email, String pass) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(EMAIL, email);
+        editor.putString(PASSWORD, pass);
+        editor.apply();
     }
 
     private boolean validation(String email, String pass){

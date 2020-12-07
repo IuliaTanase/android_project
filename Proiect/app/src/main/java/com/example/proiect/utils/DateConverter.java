@@ -1,4 +1,4 @@
-package com.example.proiect.Models;
+package com.example.proiect.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

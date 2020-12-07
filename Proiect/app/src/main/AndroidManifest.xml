@@ -5,19 +5,22 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_people_foreground"
         android:label="@string/androidele_RentManager"
         android:roundIcon="@mipmap/ic_people_round"
         android:supportsRtl="true"
-        android:theme="@style/AndroideleStyle">
+        android:theme="@style/AndroideleStyleLight">
         <activity android:name=".AddApartmentActivity" />
         <activity
             android:name=".MainActivity"
             android:label="Rent Manager"
-            android:theme="@style/AndroideleStyle" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".LoginActivity">
+            android:theme="@style/AndroideleStyleLight" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/AndroideleStyleLight" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AndroideleStyleLight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

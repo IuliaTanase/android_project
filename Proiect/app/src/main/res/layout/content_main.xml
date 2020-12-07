@@ -13,7 +13,8 @@
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/app_background">
 
         <TextView
             android:id="@+id/androidele_tvMotto"
@@ -21,8 +22,10 @@
             android:layout_height="wrap_content"
             android:text="@string/androidele_motto"
             android:layout_gravity="center_horizontal"
+            android:textSize="18sp"
             android:layout_marginTop="50dp"
-            ></TextView>
+            android:textColor="@android:color/black"
+            />
 
 
         <ImageView
@@ -31,5 +34,13 @@
             android:layout_height="280dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/man" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/androidele_buttonSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"/>
+
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
