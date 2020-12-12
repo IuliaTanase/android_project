@@ -20,8 +20,8 @@ import android.widget.Toast;
 
 import com.example.proiect.LoginActivity;
 import com.example.proiect.MainActivity;
-import com.example.proiect.utils.User;
 import com.example.proiect.R;
+import com.example.proiect.utils.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

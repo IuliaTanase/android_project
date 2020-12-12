@@ -2,7 +2,9 @@ package com.example.proiect.utils;
 
 import androidx.annotation.NonNull;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String fullName;
     private String email;
     private String password;

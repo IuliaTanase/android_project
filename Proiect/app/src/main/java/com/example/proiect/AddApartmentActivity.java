@@ -170,6 +170,7 @@ public class AddApartmentActivity extends AppCompatActivity {
         Tenant tenant;
         if(rgAvailability.getCheckedRadioButtonId() == R.id.androidele_rb_occupied) {
             int tenantId = intent.getIntExtra(ApartmentsFragment.TENANTS_LIST_LENGTH, 0);
+
             String tenantName = tietTenantName.getText().toString();
             String tenantPhone = tietTenantPhone.getText().toString();
             tenant = new Tenant(tenantId, tenantName, tenantPhone);

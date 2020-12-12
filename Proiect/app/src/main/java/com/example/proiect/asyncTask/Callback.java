@@ -2,5 +2,5 @@ package com.example.proiect.asyncTask;
 
 public interface Callback<R> {
 
-    void runResultOnUiThread(R result);
+    public void runResultOnUiThread(R result);
 }

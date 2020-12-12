@@ -52,12 +52,15 @@ public class TenantAdapter extends ArrayAdapter<Tenant> {
 
 //        for(int i = 0; i < apartments.size(); i++) {
         //TODO - la adaugare nu populeaza bine adapter??
-            Tenant tenant = apartments.get(position).getTenant();
+            Tenant tenant = tenants.get(position);
+
+        //System.out.println("apart " + a.getTitle());
+        System.out.println(tenant.getFullName());
             if(tenant != null) {
                 if(!tenant.getFullName().equals("-")) {
                     addFullName(view, tenant.getFullName());
                     addPhone(view, tenant.getPhone());
-                    addApartmentTitle(view, apartments.get(position).getTitle());
+                    //addApartmentTitle(view, a.getTitle());
                 }
             }
 //        }

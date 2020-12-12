@@ -21,12 +21,12 @@ import android.widget.Toast;
 
 import com.example.proiect.AddApartmentActivity;
 import com.example.proiect.MainActivity;
+import com.example.proiect.R;
 import com.example.proiect.asyncTask.AsyncTaskRunner;
 import com.example.proiect.asyncTask.Callback;
 import com.example.proiect.network.HttpManager;
-import com.example.proiect.utils.Apartment;
 import com.example.proiect.adapters.ApartmentAdapter;
-import com.example.proiect.R;
+import com.example.proiect.utils.Apartment;
 import com.example.proiect.utils.ApartmentJsonParser;
 import com.example.proiect.utils.Tenant;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

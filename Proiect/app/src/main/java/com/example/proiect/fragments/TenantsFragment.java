@@ -47,6 +47,8 @@ public class TenantsFragment extends Fragment {
         bundle.putParcelableArrayList(TenantsFragment.TENANTS_KEY, tenants);
         bundle.putParcelableArrayList(TenantsFragment.APARTMENTS_KEY, apartments);
 
+        System.out.println(tenants);
+        System.out.println(apartments);
         fragment.setArguments(bundle);
         return fragment;
     }

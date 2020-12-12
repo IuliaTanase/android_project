@@ -3,7 +3,6 @@ package com.example.proiect;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,18 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.proiect.asyncTask.AsyncTaskRunner;
-import com.example.proiect.asyncTask.Callback;
+import com.example.proiect.fragments.ApartmentsFragment;
+import com.example.proiect.fragments.DetailsFragment;
 import com.example.proiect.fragments.LocationsFragment;
 import com.example.proiect.utils.Apartment;
-import com.example.proiect.utils.ApartmentJsonParser;
 import com.example.proiect.utils.Location;
 import com.example.proiect.utils.Tenant;
 import com.example.proiect.utils.User;
-import com.example.proiect.fragments.ApartmentsFragment;
-import com.example.proiect.fragments.DetailsFragment;
+
 import com.example.proiect.fragments.TenantsFragment;
-import com.example.proiect.network.HttpManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,19 +33,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.Callable;
 
 public class MainActivity extends AppCompatActivity {
 

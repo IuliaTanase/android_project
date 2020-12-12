@@ -16,7 +16,7 @@ public class AsyncTaskRunner {
 
     public <R> void executeAsync(Callable<R> asyncOperation, Callback<R> mainThreadOperation) {
         try {
-            executor.execute(new RunnableTask<>(handler, asyncOperation, mainThreadOperation));
+            executor.execute(new RunnableTask<R>(handler, asyncOperation, mainThreadOperation));
         } catch (Exception ex) {
             Log.i("AsyncTaskRunner", "failed call executeAsync " + ex.getMessage());
         }
