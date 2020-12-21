@@ -9,11 +9,11 @@
         android:id="@+id/androidele_ivTenant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_people_alt_24" />
+        app:srcCompat="@drawable/ic_baseline_people_alt_24"
+        android:layout_marginStart="50dp"/>
 
     <TextView
         android:id="@+id/androidele_tv_FullNameTenant"
@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp"
         android:text="@string/androidele_fullName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
+        app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toEndOf="@id/androidele_ivTenant"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,60 +31,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        app:layout_constraintHorizontal_bias="0.24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/androidele_ivTenant"
-        android:layout_marginStart="10dp"
-        app:srcCompat="@drawable/ic_baseline_phone_in_talk_24" />
+        app:srcCompat="@drawable/ic_baseline_phone_in_talk_24"
+        android:layout_marginStart="50dp"/>
 
     <TextView
         android:id="@+id/androidele_tv_phoneTenant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
         android:layout_marginTop="20dp"
         android:text="@string/androidele_phone"
-        app:layout_constraintEnd_toStartOf="@id/androidele_fabApartment"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toEndOf="@+id/androidele_iv_phone"
         app:layout_constraintTop_toBottomOf="@id/androidele_tv_FullNameTenant" />
 
-    <ImageView
-        android:id="@+id/androidele_iv_ApartmentTenant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toStartOf="@id/androidele_tv_apartmentTitleTenant"
-        app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toEndOf="@id/androidele_tv_FullNameTenant"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_apartment_24" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/androidele_tv_apartmentTitleTenant"
-        android:text="@string/apartment_title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/androidele_iv_ApartmentTenant"
-        android:layout_marginTop="10dp"
 
-        >
-    </TextView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/androidele_fabApartment"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.78"
-        app:layout_constraintStart_toStartOf="@id/androidele_tv_phoneTenant"
-        app:layout_constraintTop_toBottomOf="@id/androidele_tv_apartmentTitleTenant"
-        app:srcCompat="@drawable/ic_baseline_send_24" />
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

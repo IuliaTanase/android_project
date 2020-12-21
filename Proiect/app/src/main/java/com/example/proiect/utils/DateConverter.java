@@ -1,5 +1,7 @@
 package com.example.proiect.utils;
 
+import androidx.room.TypeConverter;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,6 +16,7 @@ public class DateConverter {
         formatter = new SimpleDateFormat(FORMAT_DATE, Locale.US);
     }
 
+    @TypeConverter
     public Date stringToDate(String value) {
         try {
             return formatter.parse(value);
@@ -22,6 +25,7 @@ public class DateConverter {
         }
     }
 
+    @TypeConverter
     public String dateToString(Date value) {
         if(value == null) {
             return null;

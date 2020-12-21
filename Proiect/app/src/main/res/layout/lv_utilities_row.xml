@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bkg_transparent"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/androidele_tvNameUtility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/androidele_tvUtilityProvider"
+        android:layout_marginTop="10dp"
+        android:text="@string/ut_name"
+        >
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/androidele_tvUtilityProvider"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/androidele_tvNameUtility"
+        app:layout_constraintEnd_toStartOf="@id/androidele_IVutilityImage"
+        android:text="@string/utility_provider"
+        android:layout_marginTop="10dp"></TextView>
+
+    <ImageView
+        android:id="@+id/androidele_IVutilityImage"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/improvement"></ImageView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/androidele_fabDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@id/androidele_tvUtilityProvider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/ic_baseline_delete_forever_24"
+        android:layout_marginBottom="15dp"
+
+        />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

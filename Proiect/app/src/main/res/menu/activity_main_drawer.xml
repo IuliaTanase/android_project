@@ -22,5 +22,15 @@
             android:id="@+id/androidele_details"
             android:icon="@drawable/ic_baseline_event_note_24"
             android:title="@string/androidele_details" />
+
+        <item
+            android:id="@+id/androidele_utilities"
+            android:icon="@drawable/ic_baseline_battery_charging_full_24"
+            android:title="@string/utilities"></item>
+
+        <item
+            android:id="@+id/androidele_invoices"
+            android:icon="@drawable/ic_baseline_description_24"
+            android:title="@string/invoices"></item>
     </group>
 </menu>

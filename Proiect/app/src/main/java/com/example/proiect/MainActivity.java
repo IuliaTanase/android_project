@@ -15,7 +15,9 @@ import android.widget.Toast;
 
 import com.example.proiect.fragments.ApartmentsFragment;
 import com.example.proiect.fragments.DetailsFragment;
+import com.example.proiect.fragments.InvoiceFragment;
 import com.example.proiect.fragments.LocationsFragment;
+import com.example.proiect.fragments.UtilityFragment;
 import com.example.proiect.utils.Apartment;
 import com.example.proiect.utils.Location;
 import com.example.proiect.utils.Tenant;
@@ -142,14 +144,25 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if(item.getItemId() == R.id.androidele_details){
-                    imageMan.setVisibility(View.INVISIBLE);
-                    motto.setVisibility(View.INVISIBLE);
+                    setViewsInvisible();
                     currentFragment = DetailsFragment.newInstance();
                 }
 
                 if (item.getItemId() == R.id.androidele_availableLocations) {
                     currentFragment = LocationsFragment.newInstance(locations);
                 }
+
+                if(item.getItemId() == R.id.androidele_utilities){
+                    setViewsInvisible();
+                    currentFragment = UtilityFragment.newInstance();
+                }
+
+                if(item.getItemId() == R.id.androidele_invoices){
+                    setViewsInvisible();
+                    currentFragment = InvoiceFragment.newInstance();
+                }
+
+
 
                 Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
                 openFragment();
@@ -208,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
    }
+
 
    private void setViewsVisible() {
        imageMan.setVisibility(View.VISIBLE);

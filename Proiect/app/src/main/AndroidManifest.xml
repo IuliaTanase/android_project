@@ -10,6 +10,8 @@
         android:roundIcon="@mipmap/ic_people_round"
         android:supportsRtl="true"
         android:theme="@style/AndroideleStyleLight">
+        <activity android:name=".AddInvoiceActivity"></activity>
+        <activity android:name=".AddUtilityActivity" />
         <activity android:name=".AddApartmentActivity" />
         <activity
             android:name=".MainActivity"

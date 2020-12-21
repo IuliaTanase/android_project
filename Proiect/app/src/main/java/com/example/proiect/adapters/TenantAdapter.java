@@ -40,36 +40,20 @@ public class TenantAdapter extends ArrayAdapter<Tenant> {
         View view = inflater.inflate(res, parent,false);
         TextView tv = view.findViewById(R.id.androidele_tv_phoneTenant);
 
-//        Tenant t = tenants.get(position);
-//        Apartment a = apartments.stream().filter(ap -> ap.getTenant().getId() == t.getId()).findFirst().get();
-//
-//        if(t != null){
-//            addFullName(view,t.getFullName());
-//            addPhone(view,t.getPhone());
-//            addApartmentTitle(view,a.getTitle());
-//        }
-//        return  view;
 
-//        for(int i = 0; i < apartments.size(); i++) {
-        //TODO - la adaugare nu populeaza bine adapter??
-            Tenant tenant = tenants.get(position);
 
-        //System.out.println("apart " + a.getTitle());
-        System.out.println(tenant.getFullName());
+        Tenant tenant = tenants.get(position);
+
+
             if(tenant != null) {
                 if(!tenant.getFullName().equals("-")) {
                     addFullName(view, tenant.getFullName());
                     addPhone(view, tenant.getPhone());
-                    //addApartmentTitle(view, a.getTitle());
+
                 }
             }
-//        }
-        return  view;
-    }
 
-    private void addApartmentTitle(View view, String title) {
-        TextView tv = view.findViewById(R.id.androidele_tv_apartmentTitleTenant);
-        setTextViewTexts(tv, title);
+        return  view;
     }
 
     private void addPhone(View view, String phone) {

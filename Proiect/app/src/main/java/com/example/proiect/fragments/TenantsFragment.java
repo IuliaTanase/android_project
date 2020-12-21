@@ -33,7 +33,7 @@ public class TenantsFragment extends Fragment {
 
     private ListView lvTenants;
     private List<Tenant> tenants = new ArrayList<>();
-    private List<Apartment> apartments;
+    private List<Apartment> apartments=new ArrayList<>();
 
     private SharedPreferences preferences;
 
@@ -91,16 +91,6 @@ public class TenantsFragment extends Fragment {
         }
     }
 
-//    private void addTenants(List<Apartment> apartments) {
-//        for(int i = 0; i < apartments.size(); i++) {
-//            Tenant apartmentTenant = apartments.get(i).getTenant();
-//            if( apartmentTenant != null) {
-//                Tenant tenant = new Tenant(apartmentTenant.getFullName(), apartmentTenant.getPhone());
-//                tenants.add(tenant);
-//            }
-//        }
-//
-//    }
 
     public void notifyInternalAdapter() {
         ArrayAdapter adapter = (ArrayAdapter) lvTenants.getAdapter();

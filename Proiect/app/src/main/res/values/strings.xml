@@ -78,11 +78,60 @@
     <string name="androidele_location_address">Location address</string>
     <string name="androidele_location_price">Location price</string>
     <string name="androidele_tenant_name">Tenant name</string>
+    <string name="utilities">Utilities</string>
+    <string name="invoices">Invoices</string>
+    <string name="filters">FILTERS</string>
+    <string name="add">ADD</string>
+    <string name="ut_name">Utility name</string>
+    <string name="utility_provider">Utility provider</string>
+    <string name="no_utility_name">No utility name</string>
+    <string name="no_provider">No provider</string>
+    <string name="save">Save</string>
+    <string name="update">Update</string>
+    <string name="cant_select_all">You can\'t select \'ALL\' here</string>
+    <string name="date">Date</string>
+    <string name="invoice_value">Invoice Value</string>
+    <string name="noinvoice_date">No date</string>
+    <string name="noinvoice_apartment">No apartment</string>
+    <string name="noinvoice_value">No value</string>
+    <string name="no_invoice_utility">No utility</string>
+    <string name="utility_id">Utility ID</string>
+    <string name="complete_apart_name">Complet the apartment name</string>
+    <string name="utility_id_invalid">Utility ID is invalid</string>
+    <string name="doesnt_exist">This utility doesn\'t exist</string>
+    <string name="invalid_value">Invalid value for invoice</string>
+    <string name="complete_invoice_date">Complete the invoice date</string>
+    <string name="new_invoicee">A new invoice has been added</string>
+    <string name="all">ALL</string>
+    <string name="invoice_updated">The invoice has been updated</string>
+    <string name="enel">ENEL</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>
         <item>2</item>
         <item>3</item>
         <item>4</item>
+    </string-array>
+    <string-array name="providers">
+        <item>ALL</item>
+        <item>ENEL</item>
+        <item>AQUA NOVA</item>
+        <item>DISTRIGAZ</item>
+        <item>ENGIE</item>
+        <item>APA 2000</item>
+    </string-array>
+    <string-array name="utility_names">
+        <item>ALL</item>
+        <item>Energy</item>
+        <item>Gas</item>
+        <item>Water</item>
+    </string-array>
+    <string-array name="values">
+        <item>ALL</item>
+        <item>100</item>
+        <item>200</item>
+        <item>300</item>
+        <item>400</item>
+        <item>500</item>
     </string-array>
 </resources>

@@ -6,4 +6,5 @@
     <color name="item_background">#E1DBBF</color>
     <color name="switch_checked">#B56E3D02</color>
     <color name="colorBlack">#000000</color>
+    <color name="bkg_transparent">#70E1DBBF</color>
 </resources>
