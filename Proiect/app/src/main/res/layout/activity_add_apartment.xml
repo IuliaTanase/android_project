@@ -262,6 +262,7 @@
                 android:id="@+id/androidele_tiet_tenantPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="phone"
                 android:hint="@string/androidele_tenant_phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -282,7 +283,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/androidele_etDate" />
 
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 </TableLayout>
     </ScrollView>

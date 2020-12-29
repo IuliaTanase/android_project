@@ -1,28 +1,39 @@
 package com.example.proiect;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proiect.R;
 import com.example.proiect.database.models.Utility;
 
+import org.w3c.dom.Text;
+
 public class AddUtilityActivity extends AppCompatActivity {
 
     public static final String UTILITY_KEY = "utility_key";
-
+    private ScrollView scrollView;
     private Spinner spinnerName;
     private Spinner spinnerProvider;
     private Button btnSave;
+    private TextView tvAdd;
+    private TextView tvUtilityName;
+    private TextView tvUtilityProvider;
+    private SharedPreferences preferences;
 
     private Intent i;
-    private Utility utility=null;
+    private Utility utility = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +41,27 @@ public class AddUtilityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_utility);
         initialize();
         i = getIntent();
-        if(i.hasExtra(UTILITY_KEY)){
+
+        loadFromPrefs();
+        if(i.hasExtra(UTILITY_KEY)) {
             utility = (Utility) i.getSerializableExtra(UTILITY_KEY);
             populateViews();
+        }
+    }
+
+   private void setTextViewsColorLight() {
+        tvAdd.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvUtilityName.setTextColor(getResources().getColor(R.color.colorAccent));
+        tvUtilityProvider.setTextColor(getResources().getColor(R.color.colorAccent));
+   }
+
+    private void loadFromPrefs() {
+        boolean switchChecked = preferences.getBoolean(MainActivity.CHECKED, false);
+        if(switchChecked) {
+            scrollView.setBackground(getResources().getDrawable(R.drawable.black_background));
+            setTextViewsColorLight();
+        } else {
+            scrollView.setBackground(getResources().getDrawable(R.drawable.app_background));
         }
     }
 
@@ -79,10 +108,13 @@ public class AddUtilityActivity extends AppCompatActivity {
 
         }
 
-
     }
 
     private void initialize() {
+        scrollView = findViewById(R.id.androidele_scrollView);
+        tvAdd = findViewById(R.id.androidele_tv_addUtility);
+        tvUtilityName = findViewById(R.id.androidele_tv_utilityName);
+        tvUtilityProvider = findViewById(R.id.androidele_tv_utilityProvider);
         spinnerName = findViewById(R.id.androidele_spinnerUtilityName);
         ArrayAdapter<CharSequence> adapterName = ArrayAdapter.createFromResource(getApplicationContext(),R.array.utility_names,R.layout.support_simple_spinner_dropdown_item);
         spinnerName.setAdapter(adapterName);
@@ -91,6 +123,8 @@ public class AddUtilityActivity extends AppCompatActivity {
         spinnerProvider.setAdapter(adapterProvider);
         btnSave = findViewById(R.id.androidele_btnSaveUtility);
         btnSave.setOnClickListener(saveUtility());
+
+        preferences = getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
     }
 
     private View.OnClickListener saveUtility() {

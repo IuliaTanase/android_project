@@ -96,7 +96,7 @@
     <string name="noinvoice_value">No value</string>
     <string name="no_invoice_utility">No utility</string>
     <string name="utility_id">Utility ID</string>
-    <string name="complete_apart_name">Complet the apartment name</string>
+    <string name="complete_apart_name">Complete the apartment name</string>
     <string name="utility_id_invalid">Utility ID is invalid</string>
     <string name="doesnt_exist">This utility doesn\'t exist</string>
     <string name="invalid_value">Invalid value for invoice</string>
@@ -105,6 +105,9 @@
     <string name="all">ALL</string>
     <string name="invoice_updated">The invoice has been updated</string>
     <string name="enel">ENEL</string>
+    <string name="utility_name">Utility name</string>
+    <string name="add_a_new_utility">Add a new utility</string>
+    <string name="add_a_new_invoice">Add a new invoice</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>

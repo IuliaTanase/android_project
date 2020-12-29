@@ -27,7 +27,6 @@
             android:textColor="@android:color/black"
             />
 
-
         <ImageView
             android:id="@+id/androidele_ownerImg"
             android:layout_width="200dp"

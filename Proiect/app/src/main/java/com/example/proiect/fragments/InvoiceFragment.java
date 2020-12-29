@@ -29,6 +29,7 @@ import com.example.proiect.database.service.UtilityService;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -65,8 +66,7 @@ public class InvoiceFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_invoice, container, false);
        invoiceService = new InvoiceService(getContext());
        utilityService = new UtilityService(getContext());
@@ -92,12 +92,12 @@ public class InvoiceFragment extends Fragment {
 
     private void initialize(View view) {
         spinnerUtilityName = view.findViewById(R.id.androidele_spinnerInvoicesUtilityName);
-        ArrayAdapter<CharSequence> adapterUtilityName = ArrayAdapter.createFromResource(getContext(),R.array.utility_names,R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterUtilityName = ArrayAdapter.createFromResource(requireContext(),R.array.utility_names,R.layout.support_simple_spinner_dropdown_item);
         spinnerUtilityName.setAdapter(adapterUtilityName);
         spinnerUtilityName.setOnItemSelectedListener(selectValue());
 
         spinnerValue = view.findViewById(R.id.androidele_spinnerValue);
-        ArrayAdapter<CharSequence> adapterValues = ArrayAdapter.createFromResource(getContext(),R.array.values,R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterValues = ArrayAdapter.createFromResource(requireContext(),R.array.values,R.layout.support_simple_spinner_dropdown_item);
         spinnerValue.setAdapter(adapterValues);
         spinnerValue.setOnItemSelectedListener(selectValue());
 
@@ -123,7 +123,7 @@ public class InvoiceFragment extends Fragment {
     }
 
     private void addAdapterInvoices() {
-        InvoiceAdapter invoiceAdapter = new InvoiceAdapter(getContext(),R.layout.lv_invoices_row,justInvoices,getLayoutInflater(),invoiceService,utilities);
+        InvoiceAdapter invoiceAdapter = new InvoiceAdapter(requireContext(),R.layout.lv_invoices_row,justInvoices,getLayoutInflater(),invoiceService,utilities);
         lv_invoices.setAdapter(invoiceAdapter);
     }
 
@@ -153,9 +153,7 @@ public class InvoiceFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         };
     }
 
@@ -171,7 +169,7 @@ public class InvoiceFragment extends Fragment {
                     for(UtilityAndInvoice ui : result){
 
                         for(Invoice i : ui.invoices){
-                            if(i.getSum()<Double.valueOf(value)) {
+                            if(i.getSum() < Double.parseDouble(value)) {
                                 if (!justInvoices.contains(i)) {
                                     justInvoices.add(i);
                                     utilities.add(ui.utility); //avem 3 liste aici - una de resultatele primite din baza, una cu toate facturile si una cu fiecare utilitate pentru fiecare factura

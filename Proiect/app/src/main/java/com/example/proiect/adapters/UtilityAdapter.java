@@ -76,7 +76,7 @@ public class UtilityAdapter extends ArrayAdapter<Utility> {
         return new Callback<Integer>() {
             @Override
             public void runResultOnUiThread(Integer result) {
-                if(result != -1){
+                if(result != -1) {
                     utilities.remove(position);
                     notifyDataSetChanged();
                 }

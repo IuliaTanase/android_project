@@ -162,8 +162,6 @@ public class MainActivity extends AppCompatActivity {
                     currentFragment = InvoiceFragment.newInstance();
                 }
 
-
-
                 Toast.makeText(getApplicationContext(), getString(R.string.show_pressed_option, item.getTitle()), Toast.LENGTH_SHORT).show();
                 openFragment();
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -194,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setBackground(getResources().getDrawable(R.drawable.black_background));
         navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
         navigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorAccent)));
-        Toast.makeText(getApplicationContext(), R.string.androidele_dark_mode_activated, Toast.LENGTH_SHORT).show();
     }
 
     private void setLightTheme() {
@@ -203,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setBackground(getResources().getDrawable(R.drawable.app_background));
         navigationView.setItemTextColor(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
         navigationView.setItemIconTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorBlack)));
-        Toast.makeText(getApplicationContext(), R.string.androidele_light_mode_activated, Toast.LENGTH_SHORT).show();
     }
 
     public void setVisibilityImage(int id) {

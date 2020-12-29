@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.proiect.fragments.ApartmentsFragment;
 import com.example.proiect.utils.Apartment;
@@ -23,23 +24,30 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class AddApartmentActivity extends AppCompatActivity {
     private ScrollView scrollView;
+    private TextView tvAdd;
+    private TextView tvNrOfRooms;
+    private TextView tvAvailability;
+    private TextView tvDate;
     private TextInputEditText tietTitle;
+    private TextInputLayout tilTitle;
     private Spinner spnNrOfRooms;
     private TextInputEditText tietRentPerMonth;
+    private TextInputLayout tilRentPerMonth;
     private TextInputEditText tietAddress;
+    private TextInputLayout tilAddress;
     private TextInputEditText tietDescription;
-    private TextInputLayout tilTenantName;
+    private TextInputLayout tilDescription;
     private TextInputEditText tietTenantName;
-    private TextInputLayout tilTenantPhone;
+    private TextInputLayout tilTenantName;
     private TextInputEditText tietTenantPhone;
+    private TextInputLayout tilTenantPhone;
     private RadioGroup rgAvailability;
     private EditText etAvailabilityDate;
     private Button btnAddApartment;
-
-    private List<View> views = new ArrayList<>();
 
     private DateConverter dateConverter = new DateConverter();
     private Intent intent;
@@ -86,12 +94,21 @@ public class AddApartmentActivity extends AppCompatActivity {
 
     private void initializeComponentsFromWidgets() {
         scrollView = findViewById(R.id.androidele_scrollView);
+        tvAdd = findViewById(R.id.androidele_tvAddApartment);
+        tvNrOfRooms = findViewById(R.id.androidele_tv_nrOfRooms);
+        tvAvailability = findViewById(R.id.androidele_tv_availability);
+        tvDate = findViewById(R.id.androidele_tv_date);
+
         tietTitle = findViewById(R.id.androidele_tiet_apartmentTitle);
+        tilTitle = findViewById(R.id.androidele_til_apartmentTitle);
         spnNrOfRooms = findViewById(R.id.androidele_spn_NrOfRooms);
 
         tietRentPerMonth = findViewById(R.id.androidele_tiet_rentPerMonth);
+        tilRentPerMonth = findViewById(R.id.androidele_til_rentPerMonth);
         tietAddress = findViewById(R.id.androidele_tiet_apartmentAddress);
+        tilAddress = findViewById(R.id.androidele_til_apartmentAddress);
         tietDescription = findViewById(R.id.androidele_tiet_apartmentDescription);
+        tilDescription = findViewById(R.id.androidele_til_apartmentDescription);
 
         tilTenantName = findViewById(R.id.androidele_til_apartmentTenant);
         tietTenantName = findViewById(R.id.androidele_tiet_apartmentTenant);
@@ -104,14 +121,6 @@ public class AddApartmentActivity extends AppCompatActivity {
         btnAddApartment = findViewById(R.id.androidele_btnAddApartment);
 
         preferences = getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
-
-//        views.add(tietTitle);
-//        views.add(tietRentPerMonth);
-//        views.add(tietAddress);
-//        views.add(tietDescription);
-//        views.add(tietTenantName);
-//        views.add(tilTenantName);
-//        views.add(etAvailabilityDate);
     }
 
     public void setAdapterOnSpinner() {
@@ -123,13 +132,9 @@ public class AddApartmentActivity extends AppCompatActivity {
         boolean switchChecked = preferences.getBoolean(MainActivity.CHECKED, false);
         if(switchChecked) {
            scrollView.setBackground(getResources().getDrawable(R.drawable.black_background));
-            //setTheme(R.style.MyDarkTheme);
-//            for(int i = 0; i<views.size(); i++) {
-//                views.get(i).setTextColor = ;
-//            }
+           setTextViewsColorLight();
         } else {
             scrollView.setBackground(getResources().getDrawable(R.drawable.app_background));
-            //setTheme(R.style.AndroideleStyleLight);
         }
     }
 
@@ -156,11 +161,11 @@ public class AddApartmentActivity extends AppCompatActivity {
 
     private Apartment createApartmentFromWidgets() {
         int id = intent.getIntExtra(ApartmentsFragment.APARTMENTS_LIST_LENGTH, 0);
-        String title = tietTitle.getText().toString().trim();
+        String title = Objects.requireNonNull(tietTitle.getText()).toString().trim();
         int nrOfRooms = Integer.parseInt(spnNrOfRooms.getSelectedItem().toString());
-        double rentPerMonth = Double.parseDouble(tietRentPerMonth.getText().toString());
-        String address = tietAddress.getText().toString();
-        String description = tietDescription.getText().toString();
+        double rentPerMonth = Double.parseDouble(Objects.requireNonNull(tietRentPerMonth.getText()).toString());
+        String address = Objects.requireNonNull(tietAddress.getText()).toString();
+        String description = Objects.requireNonNull(tietDescription.getText()).toString();
         boolean availability = true;
         if(rgAvailability.getCheckedRadioButtonId() == R.id.androidele_rb_occupied) {
             availability = false;
@@ -171,8 +176,8 @@ public class AddApartmentActivity extends AppCompatActivity {
         if(rgAvailability.getCheckedRadioButtonId() == R.id.androidele_rb_occupied) {
             int tenantId = intent.getIntExtra(ApartmentsFragment.TENANTS_LIST_LENGTH, 0);
 
-            String tenantName = tietTenantName.getText().toString();
-            String tenantPhone = tietTenantPhone.getText().toString();
+            String tenantName = Objects.requireNonNull(tietTenantName.getText()).toString();
+            String tenantPhone = Objects.requireNonNull(tietTenantPhone.getText()).toString();
             tenant = new Tenant(tenantId, tenantName, tenantPhone);
         } else {
             tenant = new Tenant();
@@ -180,4 +185,21 @@ public class AddApartmentActivity extends AppCompatActivity {
         return new Apartment(id, title, nrOfRooms, rentPerMonth, address, description, availability, availabilityDate, tenant);
 
     }
+
+    private void setTextViewsColorLight() {
+        tvAdd.setTextColor(getResources().getColor((R.color.colorPrimary)));
+        tvNrOfRooms.setTextColor(getResources().getColor((R.color.colorPrimary)));
+        tvAvailability.setTextColor(getResources().getColor((R.color.colorPrimary)));
+        tvDate.setTextColor(getResources().getColor((R.color.colorPrimary)));
+        tilTitle.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        tilDescription.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        tilAddress.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        tilRentPerMonth.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        tilTenantName.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        tilTenantPhone.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        etAvailabilityDate.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        spnNrOfRooms.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+        rgAvailability.setBackgroundColor(getResources().getColor((R.color.colorPrimary)));
+    }
+
 }

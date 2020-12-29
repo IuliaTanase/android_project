@@ -26,6 +26,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -33,15 +34,14 @@ import static android.app.Activity.RESULT_OK;
 public class UtilityFragment extends Fragment {
 
     public final static int CODE_ADD_UTILITY = 202;
-    public final static int CODE_UPDATE_UTILITY=203;
+    public final static int CODE_UPDATE_UTILITY = 203;
     private Spinner spinnerProviders;
     private ListView lv_utilities;
     private Button addUtility;
     private List<Utility> utilities = new ArrayList<>();
     private UtilityService utilityService;
 
-    public UtilityFragment() {
-        // Required empty public constructor
+    public UtilityFragment() {// Required empty public constructor
     }
 
 
@@ -84,15 +84,15 @@ public class UtilityFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent i = new Intent(getContext(),AddUtilityActivity.class);
-                i.putExtra(AddUtilityActivity.UTILITY_KEY,utilities.get(position));
-                startActivityForResult(i,CODE_UPDATE_UTILITY);
+                i.putExtra(AddUtilityActivity.UTILITY_KEY, utilities.get(position));
+                startActivityForResult(i, CODE_UPDATE_UTILITY);
             }
         };
     }
 
 
     private void addAdapterUtilities() {
-        UtilityAdapter utilityAdapter = new UtilityAdapter(getContext(),R.layout.lv_utilities_row,utilities,getLayoutInflater(),utilityService);
+        UtilityAdapter utilityAdapter = new UtilityAdapter(requireContext(),R.layout.lv_utilities_row,utilities,getLayoutInflater(),utilityService);
         lv_utilities.setAdapter(utilityAdapter);
     }
 
@@ -102,7 +102,7 @@ public class UtilityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(view.getContext(), AddUtilityActivity.class);
-                startActivityForResult(i,202);
+                startActivityForResult(i, CODE_ADD_UTILITY);
             }
         };
     }
@@ -116,8 +116,7 @@ public class UtilityFragment extends Fragment {
                 if (requestCode == CODE_ADD_UTILITY) {
                     Toast.makeText(getContext(), "A new utility was added", Toast.LENGTH_SHORT).show();
                     utilityService.insert(insertUtilityIntoDB(), utility);
-                }else
-                {
+                } else {
                     Toast.makeText(getContext(),"The utility has been updated",Toast.LENGTH_SHORT).show();
                     utilityService.update(updateUtilityFromDB(),utility);
                 }
@@ -131,7 +130,7 @@ public class UtilityFragment extends Fragment {
             public void runResultOnUiThread(Utility result) {
                 if(result!=null){
                     for(Utility u : utilities){
-                        if(u.getIdUtility() == result.getIdUtility()){
+                        if(u.getIdUtility() == result.getIdUtility()) {
                             u.setName(result.getName());
                             u.setProvider(result.getProvider());
                             break;
@@ -169,16 +168,14 @@ public class UtilityFragment extends Fragment {
 
                 if(providerName.equalsIgnoreCase("ALL")){
                     utilityService.getAll(getAllFromDb());
-                }else{
+                } else {
                     utilityService.getAllFromProvider(getAllFromDBbasedOnProvider(),providerName);
                 }
 
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) { }
         };
     }
 
@@ -199,7 +196,7 @@ public class UtilityFragment extends Fragment {
         return new Callback<List<Utility>>() {
             @Override
             public void runResultOnUiThread(List<Utility> result) {
-                // am pus inainte de verificarea daca este null deoarece vrem sa apara listview-ul gol in cazul in care
+                // am pus inainte de verificare daca este null deoarece vrem sa apara listview-ul gol in cazul in care
                 // la respectivul provider nu exista utilitati in baza de date
                 utilities.clear();
 
@@ -213,8 +210,7 @@ public class UtilityFragment extends Fragment {
 
 
     private void addAdapterProviders() {
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.providers,R.layout.support_simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),R.array.providers,R.layout.support_simple_spinner_dropdown_item);
         spinnerProviders.setAdapter(adapter);
     }
 }

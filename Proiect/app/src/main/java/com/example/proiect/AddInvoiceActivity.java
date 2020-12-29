@@ -3,11 +3,14 @@ package com.example.proiect;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.proiect.database.models.Invoice;
@@ -23,6 +26,9 @@ public class AddInvoiceActivity extends AppCompatActivity {
     private Invoice invoice=null;
     private DateConverter dateConverter;
 
+    private ScrollView scrollView;
+    private TextView tvAdd;
+    private SharedPreferences preferences;
     private EditText etUtilityID;
     private EditText etApartmentName;
     private EditText etDate;
@@ -36,6 +42,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_invoice);
         initialize();
         i=getIntent();
+        loadFromPrefs();
         if(i.hasExtra(INVOICE_KEY)){
             invoice = (Invoice) i.getSerializableExtra(INVOICE_KEY);
             populateViews();
@@ -43,6 +50,24 @@ public class AddInvoiceActivity extends AppCompatActivity {
         if(i.hasExtra(UTILITY_KEY)){
             ids= i.getLongArrayExtra(UTILITY_KEY);
         }
+    }
+
+    private void loadFromPrefs() {
+        boolean switchChecked = preferences.getBoolean(MainActivity.CHECKED, false);
+        if(switchChecked) {
+            scrollView.setBackground(getResources().getDrawable(R.drawable.black_background));
+            setTextViewsColorLight();
+        } else {
+            scrollView.setBackground(getResources().getDrawable(R.drawable.app_background));
+        }
+    }
+
+    private void setTextViewsColorLight() {
+        tvAdd.setTextColor(getResources().getColor(R.color.colorAccent));
+        etApartmentName.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        etUtilityID.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        etDate.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+        etValueInvoice.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
     private void populateViews() {
@@ -57,7 +82,8 @@ public class AddInvoiceActivity extends AppCompatActivity {
     }
 
     private void initialize() {
-
+        scrollView = findViewById(R.id.androidele_scrollView);
+        tvAdd = findViewById(R.id.androidele_tvAddInvoice);
         dateConverter = new DateConverter();
         etApartmentName = findViewById(R.id.androidele_etApartmentTitleInvoicesAdd);
         etDate = findViewById(R.id.androidele_etDateAddInvoices);
@@ -67,6 +93,7 @@ public class AddInvoiceActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.androidele_btnSaveAddInvoice);
         btnSave.setOnClickListener(saveInvoice());
 
+        preferences = getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
     }
 
     private View.OnClickListener saveInvoice() {
@@ -76,8 +103,8 @@ public class AddInvoiceActivity extends AppCompatActivity {
                 if(validate()){
                     String apartTitle = etApartmentName.getText().toString();
                     Date date = dateConverter.stringToDate(etDate.getText().toString());
-                    Double value = Double.valueOf(etValueInvoice.getText().toString());
-                    Long id = Long.valueOf(etUtilityID.getText().toString());
+                    double value = Double.parseDouble(etValueInvoice.getText().toString());
+                    long id = Long.parseLong(etUtilityID.getText().toString());
                     if(invoice==null) {
                         invoice = new Invoice(date, value, apartTitle, id);
                     }else
@@ -104,24 +131,24 @@ public class AddInvoiceActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),getString(R.string.complete_apart_name),Toast.LENGTH_SHORT).show();
             return false;
         }
-        if(etUtilityID.getText()==null || etUtilityID.getText().toString().isEmpty() || Long.valueOf(etUtilityID.getText().toString())<0) {
+        if(etUtilityID.getText()==null || etUtilityID.getText().toString().isEmpty() || Long.parseLong(etUtilityID.getText().toString())<0) {
             Toast.makeText(getApplicationContext(), R.string.utility_id_invalid, Toast.LENGTH_SHORT);
             return false;
         }else{
-            boolean existent =false;
+            boolean existent = false;
             if(ids!=null) {
                 for (long i : ids) {
-                    if (i == Long.valueOf(etUtilityID.getText().toString())) {
+                    if (i == Long.parseLong(etUtilityID.getText().toString())) {
                         existent = true;
                     }
                 }
-                if (existent == false) {
+                if (!existent) {
                     Toast.makeText(getApplicationContext(), getString(R.string.doesnt_exist), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
         }
-        if(etValueInvoice.getText()==null || etValueInvoice.getText().toString().isEmpty() || Double.valueOf(etValueInvoice.getText().toString())<0){
+        if(etValueInvoice.getText()==null || etValueInvoice.getText().toString().isEmpty() || Double.parseDouble(etValueInvoice.getText().toString())<0){
             Toast.makeText(getApplicationContext(),getString(R.string.invalid_value),Toast.LENGTH_SHORT).show();
             return false;
         }
