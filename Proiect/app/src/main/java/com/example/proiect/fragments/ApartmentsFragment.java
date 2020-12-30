@@ -93,7 +93,7 @@ public class ApartmentsFragment extends Fragment {
         lvApartments = view.findViewById(R.id.androidele_lv_apartments);
 
         grow = AnimationUtils.loadAnimation(getContext(),R.anim.grow);
-        timer = new CountDownTimer(1700,1) {
+        timer = new CountDownTimer(900,1) {
             @Override
             public void onTick(long millisUntilFinished) { }
 

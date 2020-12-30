@@ -108,6 +108,8 @@
     <string name="utility_name">Utility name</string>
     <string name="add_a_new_utility">Add a new utility</string>
     <string name="add_a_new_invoice">Add a new invoice</string>
+    <string name="write_down_which_one_you_want_to_edit">Write down which one you want to edit</string>
+    <string name="invalid">Invalid number. It should be one between 1 and the length of list</string>
 
     <string-array name="apartment_nr_of_rooms">
         <item>1</item>

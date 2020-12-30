@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class AddUtilityActivity extends AppCompatActivity {
     private TextView tvUtilityName;
     private TextView tvUtilityProvider;
     private SharedPreferences preferences;
+    EditText etUpdateInvoice;
+    Button btnUpdateInvoice;
 
     private Intent i;
     private Utility utility = null;
@@ -125,6 +128,8 @@ public class AddUtilityActivity extends AppCompatActivity {
         btnSave.setOnClickListener(saveUtility());
 
         preferences = getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
+
+
     }
 
     private View.OnClickListener saveUtility() {

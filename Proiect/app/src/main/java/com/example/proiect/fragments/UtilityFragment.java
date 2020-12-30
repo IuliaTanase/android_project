@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class UtilityFragment extends Fragment {
     private Button addUtility;
     private List<Utility> utilities = new ArrayList<>();
     private UtilityService utilityService;
+    EditText editTextUpdate;
+    Button btnUpdate;
 
     public UtilityFragment() {// Required empty public constructor
     }
@@ -70,12 +73,31 @@ public class UtilityFragment extends Fragment {
         lv_utilities = view.findViewById(R.id.androidele_lvUtilities);
         addUtility = view.findViewById(R.id.androidele_btnAddUtility);
         spinnerProviders = view.findViewById(R.id.androidele_spinnerUtilitiesProviders);
+        editTextUpdate=view.findViewById(R.id.androidele_etUtilityUpdate);
+        btnUpdate = view.findViewById(R.id.androidele_btnUtilityEdit);
         addAdapterProviders();
         addAdapterUtilities();
         spinnerProviders.setOnItemSelectedListener(selectItemSpinner());
         addUtility.setOnClickListener(goToAddActivity(view));
         lv_utilities.setOnItemClickListener(updateUtilityClick());
+        btnUpdate.setOnClickListener(updateItem());
 
+    }
+
+    private View.OnClickListener updateItem() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int index = Integer.valueOf(editTextUpdate.getText().toString());
+                if(index > 0 && index <= utilities.size()){
+                    Intent i = new Intent(getContext(),AddUtilityActivity.class);
+                    i.putExtra(AddUtilityActivity.UTILITY_KEY,utilities.get(index-1));
+                    startActivityForResult(i,CODE_UPDATE_UTILITY);
+                }else{
+                    Toast.makeText(getContext(),getString(R.string.invalid),Toast.LENGTH_LONG).show();
+                }
+            }
+        };
     }
 
     private AdapterView.OnItemClickListener updateUtilityClick() {

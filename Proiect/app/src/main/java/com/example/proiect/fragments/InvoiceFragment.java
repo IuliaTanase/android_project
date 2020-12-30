@@ -12,11 +12,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.proiect.AddInvoiceActivity;
+import com.example.proiect.AddUtilityActivity;
 import com.example.proiect.R;
 import com.example.proiect.adapters.InvoiceAdapter;
 import com.example.proiect.asyncTask.Callback;
@@ -49,6 +51,8 @@ public class InvoiceFragment extends Fragment {
     UtilityService utilityService;
     List<Utility> existingUtilities=new ArrayList<>();  //lista cu toate utilitati, indiferent daca au facturi corespondente sau nu
     long[] ids=new long[100];
+    EditText etUpdateInvoice;
+    Button btnUpdateInvoice;
 
     public InvoiceFragment() {
         // Required empty public constructor
@@ -108,6 +112,29 @@ public class InvoiceFragment extends Fragment {
         btnAddInvoice.setOnClickListener(goToAddInvoice());
 
         lv_invoices.setOnItemClickListener(clickInvoiceEvent());
+
+        etUpdateInvoice= view.findViewById(R.id.androidele_etUpdateInvoice);
+        btnUpdateInvoice = view.findViewById(R.id.androidele_btnUpdateInvoice);
+        btnUpdateInvoice.setOnClickListener(updateItem());
+    }
+
+    private View.OnClickListener updateItem() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    int index = Integer.valueOf(etUpdateInvoice.getText().toString());
+                    if(index > 0 && index <= justInvoices.size()){
+                        Intent i = new Intent(getContext(), AddUtilityActivity.class);
+                        Intent intent = new Intent(getContext(),AddInvoiceActivity.class);
+                        intent.putExtra(AddInvoiceActivity.INVOICE_KEY,justInvoices.get(index-1));
+                        intent.putExtra(AddInvoiceActivity.UTILITY_KEY,ids);
+                        startActivityForResult(intent,CODE_UPDATE_INVOICE);
+                    }else{
+                        Toast.makeText(getContext(), R.string.invalid,Toast.LENGTH_LONG).show();
+                    }
+
+            }
+        };
     }
 
     private AdapterView.OnItemClickListener clickInvoiceEvent() {

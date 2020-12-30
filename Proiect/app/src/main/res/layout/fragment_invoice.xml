@@ -16,7 +16,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@color/bkg_transparent">
+        android:background="@color/bkg_transparent"
+        >
     </FrameLayout>
 
     <TextView
@@ -67,16 +68,14 @@
     <ListView
         android:id="@+id/androidele_lvInvoices"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/androidele_btnAddInvoice"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="200dp"
+        app:layout_constraintTop_toBottomOf="@id/androidele_frameLayoutInvoices"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/androidele_frameLayoutInvoices" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:clickable="true"></ListView>
 
     <Button
         android:id="@+id/androidele_btnAddInvoice"
@@ -90,6 +89,31 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/androidele_lvInvoices"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.18" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/androidele_etUpdateInvoice"
+        app:layout_constraintTop_toBottomOf="@id/androidele_btnAddInvoice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:hint="@string/write_down_which_one_you_want_to_edit"></EditText>
+
+    <Button
+        android:id="@+id/androidele_btnUpdateInvoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/rounded_corners"
+        android:text="@string/androidele_update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etUpdateInvoice"
+        app:layout_constraintVertical_bias="0.22000003"></Button>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

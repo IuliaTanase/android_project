@@ -59,19 +59,17 @@
     <ListView
         android:id="@+id/androidele_lvUtilities"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:dividerHeight="2dp"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:layout_height="200dp"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/androidele_btnAddUtility"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        app:layout_constraintTop_toBottomOf="@id/androidele_frameLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/androidele_frameLayout" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:dividerHeight="2dp"
+        android:clickable="true" />
 
     <Button
         android:id="@+id/androidele_btnAddUtility"
@@ -85,7 +83,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/androidele_lvUtilities" />
+        app:layout_constraintTop_toBottomOf="@id/androidele_lvUtilities"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/androidele_etUtilityUpdate"
+        android:hint="@string/write_down_which_one_you_want_to_edit"
+        android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/androidele_btnAddUtility"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"></EditText>
+
+    <Button
+        android:id="@+id/androidele_btnUtilityEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:text="@string/androidele_update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/androidele_etUtilityUpdate"
+        app:layout_constraintVertical_bias="0.110000014"
+        android:background="@drawable/rounded_corners"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
