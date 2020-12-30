@@ -1,6 +1,7 @@
 package com.example.proiect.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.proiect.AddInvoiceActivity;
 import com.example.proiect.AddUtilityActivity;
+import com.example.proiect.MainActivity;
 import com.example.proiect.R;
 import com.example.proiect.adapters.InvoiceAdapter;
 import com.example.proiect.asyncTask.Callback;
@@ -34,6 +36,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 public class InvoiceFragment extends Fragment {
 
@@ -53,6 +56,7 @@ public class InvoiceFragment extends Fragment {
     long[] ids=new long[100];
     EditText etUpdateInvoice;
     Button btnUpdateInvoice;
+    private SharedPreferences preferences;
 
     public InvoiceFragment() {
         // Required empty public constructor
@@ -76,6 +80,8 @@ public class InvoiceFragment extends Fragment {
        utilityService = new UtilityService(getContext());
        utilityService.getAll(getAllUtilitiesFromDB());
        initialize(view);
+       loadFromPrefs();
+
        return view;
     }
 
@@ -116,13 +122,21 @@ public class InvoiceFragment extends Fragment {
         etUpdateInvoice= view.findViewById(R.id.androidele_etUpdateInvoice);
         btnUpdateInvoice = view.findViewById(R.id.androidele_btnUpdateInvoice);
         btnUpdateInvoice.setOnClickListener(updateItem());
+        preferences = requireContext().getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
+    }
+
+    private void loadFromPrefs() {
+        boolean switchChecked = preferences.getBoolean(MainActivity.CHECKED, false);
+        if(switchChecked) {
+            etUpdateInvoice.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     private View.OnClickListener updateItem() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    int index = Integer.valueOf(etUpdateInvoice.getText().toString());
+                    int index = Integer.parseInt(etUpdateInvoice.getText().toString());
                     if(index > 0 && index <= justInvoices.size()){
                         Intent i = new Intent(getContext(), AddUtilityActivity.class);
                         Intent intent = new Intent(getContext(),AddInvoiceActivity.class);

@@ -1,6 +1,7 @@
 package com.example.proiect.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.proiect.AddUtilityActivity;
+import com.example.proiect.MainActivity;
 import com.example.proiect.R;
 import com.example.proiect.adapters.UtilityAdapter;
 import com.example.proiect.asyncTask.Callback;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class UtilityFragment extends Fragment {
@@ -41,8 +44,9 @@ public class UtilityFragment extends Fragment {
     private Button addUtility;
     private List<Utility> utilities = new ArrayList<>();
     private UtilityService utilityService;
-    EditText editTextUpdate;
-    Button btnUpdate;
+    private EditText editTextUpdate;
+    private Button btnUpdate;
+    private SharedPreferences preferences;
 
     public UtilityFragment() {// Required empty public constructor
     }
@@ -65,8 +69,11 @@ public class UtilityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_utility, container, false);
         utilityService = new UtilityService(view.getContext());
         initialize(view);
+        loadFromPrefs();
+
         return view;
     }
+
 
     private void initialize(View view) {
 
@@ -81,14 +88,22 @@ public class UtilityFragment extends Fragment {
         addUtility.setOnClickListener(goToAddActivity(view));
         lv_utilities.setOnItemClickListener(updateUtilityClick());
         btnUpdate.setOnClickListener(updateItem());
+        preferences = requireContext().getSharedPreferences(MainActivity.THEME_PREF, MODE_PRIVATE);
 
+    }
+
+    private void loadFromPrefs() {
+        boolean switchChecked = preferences.getBoolean(MainActivity.CHECKED, false);
+        if(switchChecked) {
+            editTextUpdate.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        }
     }
 
     private View.OnClickListener updateItem() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int index = Integer.valueOf(editTextUpdate.getText().toString());
+                int index = Integer.parseInt(editTextUpdate.getText().toString());
                 if(index > 0 && index <= utilities.size()){
                     Intent i = new Intent(getContext(),AddUtilityActivity.class);
                     i.putExtra(AddUtilityActivity.UTILITY_KEY,utilities.get(index-1));

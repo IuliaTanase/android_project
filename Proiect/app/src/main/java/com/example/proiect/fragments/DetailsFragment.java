@@ -30,6 +30,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 
 public class DetailsFragment extends Fragment {
 
@@ -126,7 +128,7 @@ public class DetailsFragment extends Fragment {
     private void setTextColorDarkTheme() {
         etFullName.setTextColor(getResources().getColor(R.color.colorAccent));
         etEmail.setTextColor(getResources().getColor(R.color.colorAccent));
-
+        ratingBar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         tvFullName.setTextColor(getResources().getColor(R.color.colorAccent));
         tvEmail.setTextColor(getResources().getColor(R.color.colorAccent));
         tvDetails.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -157,7 +159,7 @@ public class DetailsFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getView().getContext(),getString(R.string.androidele_errLoadingData),Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireView().getContext(),getString(R.string.androidele_errLoadingData),Toast.LENGTH_SHORT).show();
             }
         });
     }
